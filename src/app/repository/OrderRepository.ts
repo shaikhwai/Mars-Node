@@ -11,6 +11,5 @@ class OrderRepository  extends RepositoryBase<IOrderModel> {
         super(OrderSchema);
     }
 }
-
 Object.seal(OrderRepository);
 export = OrderRepository;
