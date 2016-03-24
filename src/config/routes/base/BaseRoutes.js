@@ -1,6 +1,4 @@
 var express = require("express");
-var HeroRoutes = require("./../HeroRoutes");
-var SpartanRoutes = require("./../SpartanRoutes");
 var OrderRoutes = require("./../OrderRoutes");
 var app = express();
 var BaseRoutes = (function () {
@@ -8,8 +6,6 @@ var BaseRoutes = (function () {
     }
     Object.defineProperty(BaseRoutes.prototype, "routes", {
         get: function () {
-            app.use("/", new HeroRoutes().routes);
-            app.use("/", new SpartanRoutes().routes);
             app.use("/", new OrderRoutes().routes);
             return app;
         },
