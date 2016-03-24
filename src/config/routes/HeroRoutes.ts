@@ -6,7 +6,7 @@ class HeroRoutes {
     private _heroController: HeroController;
     
     constructor () {
-        this._heroController = new HeroController();   
+        this._heroController = new HeroController();
     }
     get routes () {
         var controller = this._heroController;
@@ -15,7 +15,7 @@ class HeroRoutes {
         router.put("/heroes/:_id", controller.update);
         router.get("/heroes/:_id", controller.findById);
         router.delete("/heroes/:_id", controller.delete);
-        
+
         return router;
     }
     
