@@ -21,7 +21,7 @@ class OrderController implements IBaseController <OrderBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.send({"error": e.message});
 
         }
     }
