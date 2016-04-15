@@ -10,7 +10,7 @@ class OrderModel {
     constructor(orderModel: IOrderModel) {
         this._orderModel = orderModel;
     }
-    get name (): string {
+    /*get name (): string {
         return this._orderModel.name;
     }
 
@@ -20,7 +20,7 @@ class OrderModel {
 
     get amount (): number {
         return this._orderModel.amount;
-    }
+    }*/
 
 
 }

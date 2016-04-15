@@ -1,4 +1,5 @@
 /// <reference path="../../../typings/tsd.d.ts" />
+"use strict";
 var Mongoose = require("mongoose");
 var Constants = require("./../../config/constants/Constants");
 var DataAccess = (function () {
@@ -16,7 +17,7 @@ var DataAccess = (function () {
         return this.mongooseInstance;
     };
     return DataAccess;
-})();
+}());
 DataAccess.connect();
 module.exports = DataAccess;
 //# sourceMappingURL=DataAccess.js.map

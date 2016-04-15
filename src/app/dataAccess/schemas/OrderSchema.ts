@@ -6,6 +6,7 @@ import IOrderModel = require("./../../model/interfaces/OrderModel");
 import IItem = require("./../../model/interfaces/Item");
 import IAddress = require("./../../model/interfaces/Address");
 import ItemModel = require("../../model/interfaces/Item");
+import ITask = require("./../../model/interfaces/Task");
 
 var mongoose = DataAccess.mongooseInstance;
 var mongooseConnection = DataAccess.mongooseConnection;
@@ -43,7 +44,7 @@ class OrderSchema {
                 type: String,
                 require: false
             },
-            venderName: {
+            vendorName: {
                 type: String,
                 require: true
             },
@@ -65,6 +66,10 @@ class OrderSchema {
             },
             billingAddress:  {
                 type: IAddress,
+                require: true
+            },
+            Task:  {
+                type: ITask,
                 require: true
             }
         });

@@ -1,3 +1,4 @@
+"use strict";
 var express = require("express");
 var OrderRoutes = require("./../OrderRoutes");
 var app = express();
@@ -13,6 +14,6 @@ var BaseRoutes = (function () {
         configurable: true
     });
     return BaseRoutes;
-})();
+}());
 module.exports = BaseRoutes;
 //# sourceMappingURL=BaseRoutes.js.map

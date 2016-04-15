@@ -1,4 +1,5 @@
 /// <reference path="../../../../typings/tsd.d.ts" />
+"use strict";
 var mongoose = require("mongoose");
 var RepositoryBase = (function () {
     function RepositoryBase(schemaModel) {
@@ -23,6 +24,6 @@ var RepositoryBase = (function () {
         return mongoose.Types.ObjectId.createFromHexString(_id);
     };
     return RepositoryBase;
-})();
+}());
 module.exports = RepositoryBase;
 //# sourceMappingURL=RepositoryBase.js.map

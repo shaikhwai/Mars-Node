@@ -1,4 +1,5 @@
 /// <reference path="../typings/tsd.d.ts" />
+"use strict";
 var express = require("express");
 var Middlewares = require("./config/middlewares/base/MiddlewaresBase");
 var app = express();

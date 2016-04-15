@@ -1,3 +1,4 @@
+"use strict";
 var express = require("express");
 var bodyParser = require("body-parser");
 var MethodOverride = require("./../MethodOverride");
@@ -17,7 +18,7 @@ var MiddlewaresBase = (function () {
         configurable: true
     });
     return MiddlewaresBase;
-})();
+}());
 Object.seal(MiddlewaresBase);
 module.exports = MiddlewaresBase;
 //# sourceMappingURL=MiddlewaresBase.js.map

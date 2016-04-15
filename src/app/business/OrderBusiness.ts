@@ -16,6 +16,7 @@ class OrderBusiness  implements IOrderBusiness {
     }
 
     create (item: IOrderModel, callback: (error: any, result: any) => void) {
+        console.log(item);
         this._orderRepository.create(item, callback);
     }
 

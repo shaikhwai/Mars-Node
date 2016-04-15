@@ -1,3 +1,4 @@
+"use strict";
 var methodOverride = require("method-override");
 var express = require("express");
 var MethodOverride = (function () {
@@ -12,7 +13,7 @@ var MethodOverride = (function () {
         return app;
     };
     return MethodOverride;
-})();
+}());
 Object.seal(MethodOverride);
 module.exports = MethodOverride;
 //# sourceMappingURL=MethodOverride.js.map
