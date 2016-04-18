@@ -30,6 +30,7 @@
     "inbox": "1.1.59",
     "imap-parsed-stream":"1.0.2",
     "rfc822-json":"latest",
-    "mailparser":"latest"
+    "mailparser":"latest",
+    "cors" : "latest"
   }
 }
