@@ -1,4 +1,3 @@
-"use strict";
 /**
  * Created by waqar on 23/3/16.
  */
@@ -13,23 +12,23 @@ var OrderSchema = (function () {
             var schema = mongoose.Schema({
                 companyName: {
                     type: String,
-                    required: true
+                    required: false
                 },
                 orderDate: {
                     type: Date,
-                    require: true
+                    require: false
                 },
                 completionDate: {
                     type: Date,
-                    require: true
+                    require: false
                 },
                 status: {
                     type: String,
-                    required: true
+                    required: false
                 },
                 orderType: {
                     type: String,
-                    required: true
+                    required: false
                 },
                 remarks: {
                     type: String,
@@ -39,17 +38,17 @@ var OrderSchema = (function () {
                     type: String,
                     require: false
                 },
-                vendorName: {
+                venderName: {
                     type: String,
-                    require: true
+                    require: false
                 },
                 contactNumber: {
                     type: Number,
-                    require: true
+                    require: false
                 },
                 totalAmount: {
                     type: Number,
-                    require: true
+                    require: false
                 },
                 items: {
                     type: [],
@@ -63,7 +62,7 @@ var OrderSchema = (function () {
                     type: IAddress,
                     require: true
                 },
-                Task: {
+                task: {
                     type: ITask,
                     require: true
                 }
@@ -74,7 +73,7 @@ var OrderSchema = (function () {
         configurable: true
     });
     return OrderSchema;
-}());
+})();
 var schema = mongooseConnection.model("Orders", OrderSchema.schema);
 module.exports = schema;
 //# sourceMappingURL=OrderSchema.js.map

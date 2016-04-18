@@ -18,23 +18,23 @@ class OrderSchema {
 
             companyName : {
                 type: String,
-                required: true
+                required: false
             },
             orderDate:{
                 type: Date,
-                require: true
+                require: false
             },
             completionDate:{
                 type: Date,
-                require: true
+                require: false
             },
             status: {
                 type: String,
-                required: true
+                required: false
             },
             orderType: {
                 type: String,
-                required: true
+                required: false
             },
             remarks: {
                 type: String,
@@ -44,17 +44,17 @@ class OrderSchema {
                 type: String,
                 require: false
             },
-            vendorName: {
+            venderName: {
                 type: String,
-                require: true
+                require: false
             },
             contactNumber: {
                 type: Number,
-                require: true
+                require: false
             },
             totalAmount: {
                 type: Number,
-                require: true
+                require: false
             },
             items: {
                 type: [],
@@ -68,7 +68,7 @@ class OrderSchema {
                 type: IAddress,
                 require: true
             },
-            Task:  {
+            task:  {
                 type: ITask,
                 require: true
             }
