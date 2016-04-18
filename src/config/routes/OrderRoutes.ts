@@ -15,7 +15,6 @@ class OrderRoutes {
         router.put("/orders/:_id", controller.update);
         router.get("/orders/:_id", controller.findById);
         router.delete("/orders/:_id", controller.delete);
-        router.get("/read", this._orderController.read);
         return router;
     }
 

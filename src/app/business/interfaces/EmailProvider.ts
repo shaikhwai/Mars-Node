@@ -6,9 +6,9 @@
  */
 
 import BaseBusiness = require("./base/BaseBusiness");
-i//mport IOrderModel = require("./../../model/interfaces/OrderModel");
+//mport IOrderModel = require("./../../model/interfaces/OrderModel");
 
-interface OrderBusiness  {
+interface EmailProvider  {
     openInbox(callback):void
 }
-export = OrderBusiness;
+export = EmailProvider;

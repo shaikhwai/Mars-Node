@@ -1,11 +1,14 @@
 /**
+ * Created by waqar on 18/4/16.
+ */
+/**
  * Created by waqar on 23/3/16.
  */
 import express = require("express");
-import OrderBusiness = require("./../app/business/OrderBusiness");
+import EmailBusiness = require("./../app/business/EmailBusiness");
 import EmailProvider = require("./../app/business/EmailProvider");
 import IBaseController = require("./interfaces/base/BaseController");
-import IOrderModel = require("./../app/model/interfaces/OrderModel");
+import IEmailModel = require("./../app/model/interfaces/EmailModel");
 import Imap = require('imap');
 import Util = require('util');
 import fs = require('fs');
@@ -14,15 +17,15 @@ import fs = require('fs');
 
 
 
-class OrderController implements IBaseController <OrderBusiness> {
+class EmailController implements IBaseController <EmailBusiness> {
 
     create(req: express.Request, res: express.Response): void {
         try {
             console.log(req.body);
-            var order: IOrderModel = <IOrderModel>req.body;
-            console.log(order);
-            var orderBusiness = new OrderBusiness();
-            orderBusiness.create(order, (error, result) => {
+            var email: IEmailModel = <IEmailModel>req.body;
+            console.log(email);
+            var emailBusiness = new EmailBusiness();
+            emailBusiness.create(email, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send({"success": "success"});
             });
@@ -36,10 +39,18 @@ class OrderController implements IBaseController <OrderBusiness> {
 
     retrieve(req: express.Request, res: express.Response): void {
         try {
-            var orderBusiness = new OrderBusiness();
-            orderBusiness.retrieve((error, result) => {
-                if(error) res.send({"error": "error"});
-                else res.send(result);
+            var emailProvider = new EmailProvider();
+            emailProvider.openInbox(function(err, data){
+                if(err){
+                    return err;
+                }
+                else{
+                    var emailBusiness = new EmailBusiness();
+                    emailBusiness.retrieve((error, result) => {
+                        if(error) res.send({"error": "error"});
+                        else res.send(result);
+                    });
+                }
             });
         }
         catch (e)  {
@@ -51,10 +62,10 @@ class OrderController implements IBaseController <OrderBusiness> {
 
     update(req: express.Request, res: express.Response): void {
         try {
-            var order: IOrderModel = <IOrderModel>req.body;
+            var email: IEmailModel = <IEmailModel>req.body;
             var _id: string = req.params._id;
-            var orderBusiness = new OrderBusiness();
-            orderBusiness.update(_id, order, (error, result) => {
+            var emailBusiness = new EmailBusiness();
+            emailBusiness.update(_id, email, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send({"success": "success"});
             });
@@ -70,8 +81,8 @@ class OrderController implements IBaseController <OrderBusiness> {
         try {
 
             var _id: string = req.params._id;
-            var orderBusiness = new OrderBusiness();
-            orderBusiness.delete(_id, (error, result) => {
+            var emailBusiness = new EmailBusiness();
+            emailBusiness.delete(_id, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send({"success": "success"});
             });
@@ -87,8 +98,8 @@ class OrderController implements IBaseController <OrderBusiness> {
         try {
 
             var _id: string = req.params._id;
-            var orderBusiness = new OrderBusiness();
-            orderBusiness.findById(_id, (error, result) => {
+            var emailBusiness = new EmailBusiness();
+            emailBusiness.findById(_id, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send(result);
             });
@@ -100,27 +111,7 @@ class OrderController implements IBaseController <OrderBusiness> {
         }
     }
 
-    /*read(req: express.Request, res: express.Response ): void{
-        try{
-            emailProvider = new EmailProvider();
-            emailProvider.openInbox(function(err, data){
-                if(err){
-                    return err;
-                }
-
-                else{
-                    console.log("calback go hit");
-                    res.send({"mails": data});
-                }
-            });
-
-
-        }catch(e){
-            console.log(e);
-            res.send({"error": e});
-        }
-    }*/
 
 }
-Object.seal(OrderController);
-export = OrderController;
+Object.seal(EmailController);
+export = EmailController;
