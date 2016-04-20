@@ -2,6 +2,7 @@
  * Created by waqar on 18/4/16.
  */
 import mongoose = require("mongoose");
+import ITask = require("./Task");
 interface EmailModel extends mongoose.Document {
 
     html : string;
@@ -12,6 +13,7 @@ interface EmailModel extends mongoose.Document {
     date : Date;
     receivedDate : Date;
     attachments : Array<any>;
+    defaultTask : ITask;
 
 
 }

@@ -2,6 +2,7 @@
 import IEmailProvider = require("./interfaces/EmailProvider");
 import EmailBusiness = require("./EmailBusiness");
 import EmailModel = require("./../model/EmailModel");
+import Task =  require("./../model/TaskModel");
 
 import Imap = require('imap');
 import Util = require('util');
@@ -10,6 +11,7 @@ import inbox = require("inbox");
 import stream = require('stream');
 
 import eMailParser = require("mailparser");
+import ITask = require("../model/interfaces/Task");
 var MailParser = eMailParser.MailParser;
 class EmailProvider  implements IEmailProvider {
     //imap:Imap;
@@ -69,8 +71,15 @@ class EmailProvider  implements IEmailProvider {
                                     email.date = msg.date;
                                     email.recivedDate = msg.recivedDate;
                                     email.attachments = attchments;
+                                    var defaultTask : ITask = new Task();
+                                    defaultTask.assignedOn = new Date();
+                                    defaultTask.assignedTo = "Swapnil";
+                                    defaultTask.status = "open";
+                                    defaultTask.priority = "high";
+                                    defaultTask.completeBy = new Date();
+                                    email.defaultTask = defaultTask;
                                     //console.log("attachment file name = "+ JSON.stringify(attchments));
-                                    console.log("Email: " + JSON.stringify(email));
+                                    //console.log("Email: " + JSON.stringify(email));
                                     emailBusiness.create(email, (error, result) => {
                                         /* if(error) callback({"error": "error"}, null);
                                          else callback(null, {"success": "success"});*/

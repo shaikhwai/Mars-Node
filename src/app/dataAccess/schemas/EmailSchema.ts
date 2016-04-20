@@ -3,6 +3,7 @@
  */
 import DataAccess = require("./../../dataAccess/DataAccess");
 import IEmailModel = require("./../../model/interfaces/EmailModel");
+import ITask = require("./../../model/interfaces/Task");
 
 var mongoose = DataAccess.mongooseInstance;
 var mongooseConnection = DataAccess.mongooseConnection;
@@ -41,6 +42,10 @@ class EmailSchema{
             },
             attachments: {
                 type: [],
+                require: false
+            },
+            defaultTask:{
+                type:ITask,
                 require: false
             }
         });
