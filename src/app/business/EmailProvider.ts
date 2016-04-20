@@ -46,8 +46,18 @@ class EmailProvider  implements IEmailProvider {
                             var f = imap.fetch(results, { bodies: ["HEADER.FIELDS (FROM SUBJECT)", ""],markSeen: true  });
                             f.on('message', function(msg, seqno) {
                                 console.log("Processing msg #" + seqno);
-
-                                var parser = new eMailParser.MailParser({showAttachmentLinks :true});
+                                var attchments :Array<any>= [];
+                                var parser = new eMailParser.MailParser({streamAttachments: true});
+                                parser.on("attachment", function(attachment, mail){
+                                    var currentDate: Date = new Date();
+                                    var fileName: String =  currentDate.getDate()+"-"+(currentDate.getMonth()+1)
+                                        +"-"+currentDate.getFullYear()+"-"+currentDate.getHours()+":"+currentDate.getMinutes()
+                                        +":"+attachment.generatedFileName;
+                                    var output = fs.createWriteStream('lib/public/'+fileName);
+                                    console.log("file path =>"+'lib/public/'+fileName);
+                                    attachment.stream.pipe(output);
+                                    attchments.push({fileName:fileName});
+                                });
                                 parser.on("end", function(msg) {
 
                                     var email = new EmailModel();
@@ -58,7 +68,8 @@ class EmailProvider  implements IEmailProvider {
                                     email.to = msg.to;
                                     email.date = msg.date;
                                     email.recivedDate = msg.recivedDate;
-                                    email.attachments = msg.attachments;
+                                    email.attachments = attchments;
+                                    //console.log("attachment file name = "+ JSON.stringify(attchments));
                                     console.log("Email: " + JSON.stringify(email));
                                     emailBusiness.create(email, (error, result) => {
                                         /* if(error) callback({"error": "error"}, null);

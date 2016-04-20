@@ -7,6 +7,7 @@
     
     var app = express();
     app.use(cors());
+    app.use(express.static(__dirname + '/public'));
     var port = parseInt(process.env.PORT, 10) || 5000;
     app.set("port", port);
     app.use(Middlewares.configuration);
