@@ -12,12 +12,11 @@ interface OrderModel extends mongoose.Document {
 
     orderDate: Date;
     completionDate: Date;
-    companyName: string;
+    fromCompany: string;
     status: string;
     orderType: string;
     remarks: string;
     contactPerson: string;
-    vendorName: string;
     contactNumber: number;
     totalAmount: number;
     items: Array<IItem>;

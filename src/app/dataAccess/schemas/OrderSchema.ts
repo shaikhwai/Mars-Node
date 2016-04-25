@@ -16,7 +16,7 @@ class OrderSchema {
     static get schema () {
         var schema =  mongoose.Schema({
 
-            companyName : {
+            fromCompany : {
                 type: String,
                 required: false
             },

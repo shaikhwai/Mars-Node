@@ -18,7 +18,6 @@ class OrderRoutes {
         return router;
     }
 
-
 }
 
 Object.seal(OrderRoutes);
