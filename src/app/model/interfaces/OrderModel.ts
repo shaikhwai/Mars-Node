@@ -23,7 +23,7 @@ interface OrderModel extends mongoose.Document {
     items: Array<IItem>;
     shippingAddress: IAddress;
     billingAddress: IAddress;
-    task: ITask;
+    defaultTask: ITask;
 
 }
 

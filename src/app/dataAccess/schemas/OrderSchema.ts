@@ -68,7 +68,7 @@ class OrderSchema {
                 type: IAddress,
                 require: true
             },
-            task:  {
+            defaultTask:  {
                 type: ITask,
                 require: true
             }
