@@ -17,7 +17,7 @@ class EmailBusiness  implements IEmailBusiness {
     }
 
     create (item: IEmailModel, callback: (error: any, result: any) => void) {
-        console.log(item);
+        //console.log(item);
         this._emailRepository.create(item, callback);
     }
 

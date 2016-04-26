@@ -78,6 +78,14 @@ class EmailProvider  implements IEmailProvider {
                                     defaultTask.priority = "high";
                                     defaultTask.completeBy = new Date();
                                     email.defaultTask = defaultTask;
+
+                                    var my_email=email.from[0].address;
+                                    var ind=my_email.indexOf("@");
+                                    var my_slice=my_email.slice((ind+1),my_email.length);
+                                    my_slice = my_slice.split(".");
+                                    email.fromCompany = my_slice[0];
+                                    //var x = my_email.match(/^[^@\s]+@([^@\s])+$/);
+
                                     //console.log("attachment file name = "+ JSON.stringify(attchments));
                                     //console.log("Email: " + JSON.stringify(email));
                                     emailBusiness.create(email, (error, result) => {

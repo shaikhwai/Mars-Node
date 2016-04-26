@@ -5,6 +5,7 @@ import mongoose = require("mongoose");
 import ITask = require("./Task");
 interface EmailModel extends mongoose.Document {
 
+    fromCompany: string;
     html : string;
     text : string;
     subject : string;

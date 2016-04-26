@@ -23,7 +23,7 @@ class EmailController implements IBaseController <EmailBusiness> {
         try {
             console.log(req.body);
             var email: IEmailModel = <IEmailModel>req.body;
-            console.log(email);
+            //console.log(email);
             var emailBusiness = new EmailBusiness();
             emailBusiness.create(email, (error, result) => {
                 if(error) res.send({"error": "error"});

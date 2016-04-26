@@ -12,7 +12,10 @@ class EmailSchema{
     static get schema () {
         var schema =  mongoose.Schema({
 
-            html : {
+            fromCompany : {
+                type: String,
+                required: false
+            },html : {
                 type: String,
                 required: false
             },
