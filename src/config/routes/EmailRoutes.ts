@@ -16,9 +16,7 @@ class EmailRoutes {
         router.get("/emails", this._emailController.retrieve);
         router.post("/emails",controller.create);
         router.put("/emails/:_id", controller.update);
-        router.get("/emails/:_id", controller.findById);
         router.delete("/emails/:_id", controller.delete);
-        //router.get("/read", this._emailController.read);
         return router;
     }
 

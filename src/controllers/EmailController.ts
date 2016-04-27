@@ -46,7 +46,8 @@ class EmailController implements IBaseController <EmailBusiness> {
                 }
                 else{
                     var emailBusiness = new EmailBusiness();
-                    emailBusiness.retrieve((error, result) => {
+                    var params = req.query;
+                    emailBusiness.retrieve(params, (error, result) => {
                         if(error) res.send({"error": "error"});
                         else res.send(result);
                     });

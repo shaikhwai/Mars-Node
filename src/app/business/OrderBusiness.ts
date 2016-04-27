@@ -20,8 +20,8 @@ class OrderBusiness  implements IOrderBusiness {
         this._orderRepository.create(item, callback);
     }
 
-    retrieve (callback: (error: any, result: any) => void) {
-        this._orderRepository.retrieve(callback);
+    retrieve (field, callback: (error: any, result: any) => void) {
+        this._orderRepository.retrieve(field, callback);
     }
 
     update (_id: string, item: IOrderModel, callback: (error: any, result: any) => void) {

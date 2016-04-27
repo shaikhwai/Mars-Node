@@ -37,7 +37,9 @@ class OrderController implements IBaseController <OrderBusiness> {
     retrieve(req: express.Request, res: express.Response): void {
         try {
             var orderBusiness = new OrderBusiness();
-            orderBusiness.retrieve((error, result) => {
+            var params = req.query;
+            console.log("params: "+JSON.stringify(req.query));
+            orderBusiness.retrieve(params, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send(result);
             });
@@ -85,8 +87,10 @@ class OrderController implements IBaseController <OrderBusiness> {
 
     findById(req: express.Request, res: express.Response): void {
         try {
-
+            console.log("findbyid is been hit");
             var _id: string = req.params._id;
+            console.log(JSON.stringify(req.params));
+            var _id = req.params;
             var orderBusiness = new OrderBusiness();
             orderBusiness.findById(_id, (error, result) => {
                 if(error) res.send({"error": "error"});
@@ -100,26 +104,6 @@ class OrderController implements IBaseController <OrderBusiness> {
         }
     }
 
-    /*read(req: express.Request, res: express.Response ): void{
-        try{
-            emailProvider = new EmailProvider();
-            emailProvider.openInbox(function(err, data){
-                if(err){
-                    return err;
-                }
-
-                else{
-                    console.log("calback go hit");
-                    res.send({"mails": data});
-                }
-            });
-
-
-        }catch(e){
-            console.log(e);
-            res.send({"error": e});
-        }
-    }*/
 
 }
 Object.seal(OrderController);

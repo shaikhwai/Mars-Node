@@ -21,8 +21,8 @@ class EmailBusiness  implements IEmailBusiness {
         this._emailRepository.create(item, callback);
     }
 
-    retrieve (callback: (error: any, result: any) => void) {
-        this._emailRepository.retrieve(callback);
+    retrieve (field, callback: (error: any, result: any) => void) {
+        this._emailRepository.retrieve(field, callback);
     }
 
     update (_id: string, item: IEmailModel, callback: (error: any, result: any) => void) {

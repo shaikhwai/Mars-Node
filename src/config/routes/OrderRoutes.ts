@@ -13,7 +13,6 @@ class OrderRoutes {
         router.get("/orders", this._orderController.retrieve);
         router.post("/orders",controller.create);
         router.put("/orders/:_id", controller.update);
-        router.get("/orders/:_id", controller.findById);
         router.delete("/orders/:_id", controller.delete);
         return router;
     }
