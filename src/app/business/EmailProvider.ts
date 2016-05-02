@@ -10,9 +10,12 @@ import fs = require('fs');
 import inbox = require("inbox");
 import stream = require('stream');
 
+import nodemailer = require('nodemailer');
 import eMailParser = require("mailparser");
 import ITask = require("../model/interfaces/Task");
 var MailParser = eMailParser.MailParser;
+
+
 class EmailProvider  implements IEmailProvider {
     //imap:Imap;
     constructor(){
@@ -61,7 +64,7 @@ class EmailProvider  implements IEmailProvider {
                                     attchments.push({fileName:fileName});
                                 });
                                 parser.on("end", function(msg) {
-
+                                    /*console.log(JSON.stringify(msg));*/
                                     var email = new EmailModel();
                                     email.html = msg.html;
                                     email.text = msg.text;
@@ -71,6 +74,7 @@ class EmailProvider  implements IEmailProvider {
                                     email.date = msg.date;
                                     email.recivedDate = msg.recivedDate;
                                     email.attachments = attchments;
+                                    email.messageId = msg.messageId;
                                     var defaultTask : ITask = new Task();
                                     defaultTask.assignedOn = new Date();
                                     defaultTask.assignedTo = "Swapnil";
@@ -125,6 +129,46 @@ class EmailProvider  implements IEmailProvider {
             console.log('Connection ended');
             callback(null, {status:"Done"});
         });
+    }
+
+    sendMail(id, email, callback){
+
+        var  emailBusiness = new EmailBusiness();
+        var smtpConfig = {
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true, // use SSL
+            auth: {
+                user: 'waqartesst@gmail.com',
+                pass: 'Heaven@1'
+            }
+        };
+        var transporter = nodemailer.createTransport(smtpConfig);
+
+        // send mail with defined transport object
+        transporter.sendMail(email, function(error, info){
+            if(error){
+                console.log(email);
+                return console.log("we got error while sending mail"+error);
+            }
+            console.log('Message sent: ' + info.response);
+            console.log(id);
+            emailBusiness.retrieve({_id:id}, function(err, record){
+               if(record){
+                   /*console.log(JSON.stringify(record[0]));*/
+                   record[0].conversation.push(email);
+                   emailBusiness.update(id, record[0],function(err, status){
+                        if(status){
+                            callback(null, status);
+                        }
+                   });
+               }
+                else{
+                   console.log("found error =>"+err);
+               }
+            });
+        });
+
     }
 
 }

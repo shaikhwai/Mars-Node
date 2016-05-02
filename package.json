@@ -27,10 +27,9 @@
     "mongojs": "^2.2.2",
     "mongoose": "^4.3.4",
     "imap": "0.8.16",
-    "inbox": "1.1.59",
     "imap-parsed-stream":"1.0.2",
-    "rfc822-json":"latest",
     "mailparser":"latest",
-    "cors" : "latest"
+    "cors" : "latest",
+    "nodemailer": "2.3.2"
   }
 }

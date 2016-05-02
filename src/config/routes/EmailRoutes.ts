@@ -17,6 +17,7 @@ class EmailRoutes {
         router.post("/emails",controller.create);
         router.put("/emails/:_id", controller.update);
         router.delete("/emails/:_id", controller.delete);
+        router.post("/sendmail", controller.sendMail);
         return router;
     }
 

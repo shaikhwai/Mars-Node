@@ -21,8 +21,8 @@ class EmailController implements IBaseController <EmailBusiness> {
 
     create(req: express.Request, res: express.Response): void {
         try {
-            console.log(req.body);
-            var email: IEmailModel = <IEmailModel>req.body;
+            console.log("create email is been hit");
+            var email: IEmailModel/* = <IEmailModel>req.body*/;
             //console.log(email);
             var emailBusiness = new EmailBusiness();
             emailBusiness.create(email, (error, result) => {
@@ -49,7 +49,10 @@ class EmailController implements IBaseController <EmailBusiness> {
                     var params = req.query;
                     emailBusiness.retrieve(params, (error, result) => {
                         if(error) res.send({"error": "error"});
-                        else res.send(result);
+                        else{
+                            /*console.log(result);*/
+                            res.send(result);
+                        }
                     });
                 }
             });
@@ -112,6 +115,45 @@ class EmailController implements IBaseController <EmailBusiness> {
         }
     }
 
+    sendMail(req: express.Request, res: express.Response): void {
+        try {
+            var body = req.body;
+            var id = body.id;
+            var email = {from: body.from,
+                to: body.to,
+                subject: body.subject,
+                text: body.text,
+                html: body.html,
+                replyTo: body.replyTo,
+                inReplyTo : body.inReplyTo,
+                references: body.references,
+                date: new Date()
+            };
+            console.log("send mail got hit");
+            var emailProvider = new EmailProvider();
+            emailProvider.sendMail(id, email, function(err, data){
+                if(err){
+                    return err;
+                }
+                else{
+                    var emailBusiness = new EmailBusiness();
+                    var params = req.query;
+                    emailBusiness.retrieve(params, (error, result) => {
+                        if(error) res.send({"error": "error"});
+                        else{
+                            //console.log(result);
+                            res.send("Email sent");
+                        }
+                    });
+                }
+            });
+        }
+        catch (e)  {
+            console.log(e);
+            res.send({"error": "error in your request"});
+
+        }
+    }
 
 }
 Object.seal(EmailController);

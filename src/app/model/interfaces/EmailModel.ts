@@ -15,6 +15,8 @@ interface EmailModel extends mongoose.Document {
     receivedDate : Date;
     attachments : Array<any>;
     defaultTask : ITask;
+    messageId : string;
+    conversation: Array<any>;
 
 
 }

@@ -7,6 +7,7 @@ import IEmailProvider = require("./interfaces/EmailProvider");
 import IEmailModel = require("./../model/interfaces/EmailModel");
 import EmailModel = require("./../model/EmailModel");
 import IEmailBusiness = require("./interfaces/EmailBusiness");
+import nodemailer = require('nodemailer');
 
 
 class EmailBusiness  implements IEmailBusiness {
@@ -17,7 +18,6 @@ class EmailBusiness  implements IEmailBusiness {
     }
 
     create (item: IEmailModel, callback: (error: any, result: any) => void) {
-        //console.log(item);
         this._emailRepository.create(item, callback);
     }
 
@@ -43,6 +43,7 @@ class EmailBusiness  implements IEmailBusiness {
     findById (_id: string, callback: (error: any, result: IEmailModel) => void) {
         this._emailRepository.findById(_id, callback);
     }
+
 
 }
 

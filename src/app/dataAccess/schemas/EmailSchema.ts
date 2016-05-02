@@ -50,6 +50,14 @@ class EmailSchema{
             defaultTask:{
                 type:ITask,
                 require: false
+            },
+            messageId:{
+                type:String,
+                require: false
+            },
+            conversation:{
+                type: [],
+                require: false
             }
         });
 
