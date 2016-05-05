@@ -42,9 +42,17 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
         return mongoose.Types.ObjectId.createFromHexString(_id)
     }
 
-    /*find(field, callback: (error:any, result: T) => void) => void){
+    findAndPopulate(searchField, populateField, callback:(err: any, result: any)=>void){
+        this._model.find(searchField).populate(populateField).exec(function(err, items) {
+            callback(err, items);
+        });
+    }
 
-    }*/
+    findOneAndUpdate(query, newData, options, callback:(err: any, result: any)=>void){
+        this._model.findOneAndUpdate(query, newData, options, function(err, result){
+            callback(err, result);
+        });
+    }
     
 }
 

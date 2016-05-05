@@ -47,10 +47,12 @@ class EmailController implements IBaseController <EmailBusiness> {
                 else{
                     var emailBusiness = new EmailBusiness();
                     var params = req.query;
-                    emailBusiness.retrieve(params, (error, result) => {
+                    /*{path:'defaultTask assignedTo',populate:{path:'assignedTo'}}*/
+                    emailBusiness.findAndPopulate(params,{path:'defaultTask assignedTo',populate:{path:'assignedTo'}}
+                        ,function(error, result){
                         if(error) res.send({"error": "error"});
                         else{
-                            /*console.log(result);*/
+                            console.log("going to send response");
                             res.send(result);
                         }
                     });

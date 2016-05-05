@@ -6,6 +6,7 @@ import IItem = require("./Item");
 import IAddress = require("./Address");
 import ITask = require("./Task");
 import mongoose = require("mongoose");
+var schema = mongoose.Schema;
 
 interface OrderModel extends mongoose.Document {
 
@@ -22,7 +23,7 @@ interface OrderModel extends mongoose.Document {
     items: Array<IItem>;
     shippingAddress: IAddress;
     billingAddress: IAddress;
-    defaultTask: ITask;
+    defaultTask: {type:mongoose.Schema.Types.ObjectId, ref:'Task'};
 
 }
 

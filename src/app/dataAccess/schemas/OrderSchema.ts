@@ -68,10 +68,7 @@ class OrderSchema {
                 type: IAddress,
                 require: true
             },
-            defaultTask:  {
-                type: ITask,
-                require: true
-            }
+            defaultTask:  {type:mongoose.Schema.Types.ObjectId, ref:'Task'}
         });
 
         return schema;

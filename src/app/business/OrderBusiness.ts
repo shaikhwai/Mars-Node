@@ -7,17 +7,58 @@ import IOrderBusiness = require("./interfaces/OrderBusiness");
 import IOrderModel = require("./../model/interfaces/OrderModel");
 import OrderModel = require("./../model/OrderModel");
 
+import TaskRepository = require("./../repository/TaskRepository");
+import ITaskBusiness = require("./interfaces/TaskBusiness");
+import ITaskModel = require("./../model/interfaces/Task");
+import TaskModel = require("./../model/TaskModel");
+
+
+/*import ITask = require("../model/interfaces/Task");*/
+
 
 class OrderBusiness  implements IOrderBusiness {
     private _orderRepository: OrderRepository;
+    private _taskRepository: TaskRepository;
+
 
     constructor () {
         this._orderRepository = new OrderRepository();
+        this._taskRepository = new TaskRepository();
     }
 
     create (item: IOrderModel, callback: (error: any, result: any) => void) {
-        console.log(item);
-        this._orderRepository.create(item, callback);
+        /*console.log(item);*/
+       /* var task :ITaskModel={
+            assignedOn : item.defaultTask.assignedOn,
+            assignedTo : item.defaultTask.assignedTo,
+            completeBy : item.defaultTask.completeBy,
+            priority : item.defaultTask.priority,
+            status : item.defaultTask.status
+        };*/
+        console.log("default task"+ JSON.stringify(item.defaultTask));
+        var defaultTask : ITaskModel = new TaskModel();
+        defaultTask.assignedOn = item.defaultTask.assignedOn;
+        defaultTask.assignedTo = item.defaultTask.assignedTo;
+        defaultTask.completeBy = item.defaultTask.completeBy;
+        defaultTask.priority = item.defaultTask.priority;
+        defaultTask.status = item.defaultTask.status;
+        console.log("default task"+ JSON.stringify(defaultTask));
+
+        console.log("order"+JSON.stringify(this._orderRepository));
+        console.log("task"+JSON.stringify(this._taskRepository));
+        console.log("repository"+ JSON.stringify(this._taskRepository));
+       // this._orderRepository.create(item, callback);
+        var orderRepository = this._orderRepository;
+
+        this._taskRepository.create(defaultTask, function(err, status){
+            if(err){
+
+            }
+            else{
+                item.defaultTask = status._id;
+                orderRepository.create(item, callback);
+            }
+        });
     }
 
     retrieve (field, callback: (error: any, result: any) => void) {
@@ -25,13 +66,28 @@ class OrderBusiness  implements IOrderBusiness {
     }
 
     update (_id: string, item: IOrderModel, callback: (error: any, result: any) => void) {
-
         this._orderRepository.findById(_id, (err, res) => {
-            if(err) callback(err, res);
+            if(err) {
+                callback(err, res);
+            }
+            else{
+                /*this._orderRepository.update(res._id, item, callback);*/
+                var defaultTask : ITask = new Task();
+                defaultTask.assignedOn = new Date(item.defaultTask.assignedOn);
+                defaultTask.assignedTo = item.defaultTask.assignedTo;
+                defaultTask.completeBy = new Date(item.defaultTask.completeBy);
+                defaultTask.priority = item.defaultTask.priority;
+                defaultTask.status = item.defaultTask.status;
+                this._taskRepository.update(item.defaultTask._id, task, function(err, status){
+                   if(err){
 
-            else
-                this._orderRepository.update(res._id, item, callback);
-
+                   }
+                    else{
+                       item.defaultTask = status._id;
+                       this._orderRepository.update(res._id, item, callback);
+                   }
+                });
+            }
         });
     }
 
@@ -43,6 +99,13 @@ class OrderBusiness  implements IOrderBusiness {
         this._orderRepository.findById(_id, callback);
     }
 
+    findAndPopulate(searchField, populateField, callback:(err: any, result: any)=>void){
+
+    }
+
+    findOneAndUpdate(query, newData, options, callback:(error: any, result: any) => void){
+        this._orderRepository.findOneAndUpdate(query, newData, options, callback);
+    }
 }
 
 

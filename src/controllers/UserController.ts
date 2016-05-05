@@ -1,30 +1,32 @@
 /**
- * Created by waqar on 23/3/16.
+ * Created by waqar on 3/5/16.
  */
 import express = require("express");
-import OrderBusiness = require("./../app/business/OrderBusiness");
-import EmailProvider = require("./../app/business/EmailProvider");
+import UserBusiness = require("./../app/business/Userbusiness");
 import IBaseController = require("./interfaces/base/BaseController");
-import IOrderModel = require("./../app/model/interfaces/OrderModel");
-import Imap = require('imap');
-import Util = require('util');
-import fs = require('fs');
-/*import inspect = require("util").inspect;*/
-//import inspect = Util.inspect;
+import IUserModel = require("./../app/model/interfaces/UserModel");
+import UserBusiness = require("../app/business/Userbusiness");
 
 
 
-class OrderController implements IBaseController <OrderBusiness> {
+
+class UserController implements IBaseController <UserBusiness> {
 
     create(req: express.Request, res: express.Response): void {
         try {
-            console.log(req.body);
-            var order: IOrderModel = <IOrderModel>req.body;
-            /*console.log(order);*/
-            var orderBusiness = new OrderBusiness();
-            orderBusiness.create(order, (error, result) => {
-                if(error) res.send({"error": error});
-                else res.send({"success": "success"});
+            /*console.log(req.body);*/
+            var user: IUserModel = <IUserModel>req.body;
+            user.createdAt = new Date();
+            /*console.log(user);*/
+            var userBusiness = new UserBusiness();
+            userBusiness.create(user, (error, result) => {
+                if(error){
+                    res.send({"error": "error"});
+                }
+                else{
+                    console.log("User created"+ result);
+                    res.send({"success": "success"});
+                }
             });
         }
         catch (e)  {
@@ -36,10 +38,10 @@ class OrderController implements IBaseController <OrderBusiness> {
 
     retrieve(req: express.Request, res: express.Response): void {
         try {
-            var orderBusiness = new OrderBusiness();
+            var userBusiness = new UserBusiness();
             var params = req.query;
             console.log("params: "+JSON.stringify(req.query));
-            orderBusiness.retrieve(params, (error, result) => {
+            userBusiness.retrieve(params, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send(result);
             });
@@ -53,10 +55,10 @@ class OrderController implements IBaseController <OrderBusiness> {
 
     update(req: express.Request, res: express.Response): void {
         try {
-            var order: IOrderModel = <IOrderModel>req.body;
+            var user: IUserModel = <IUserModel>req.body;
             var _id: string = req.params._id;
-            var orderBusiness = new OrderBusiness();
-            orderBusiness.update(_id, order, (error, result) => {
+            var userBusiness = new UserBusiness();
+            userBusiness.update(_id, user, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send({"success": "success"});
             });
@@ -72,8 +74,8 @@ class OrderController implements IBaseController <OrderBusiness> {
         try {
 
             var _id: string = req.params._id;
-            var orderBusiness = new OrderBusiness();
-            orderBusiness.delete(_id, (error, result) => {
+            var userBusiness = new UserBusiness();
+            userBusiness.delete(_id, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send({"success": "success"});
             });
@@ -91,8 +93,8 @@ class OrderController implements IBaseController <OrderBusiness> {
             var _id: string = req.params._id;
             console.log(JSON.stringify(req.params));
             var _id = req.params;
-            var orderBusiness = new OrderBusiness();
-            orderBusiness.findById(_id, (error, result) => {
+            var userBusiness = new UserBusiness();
+            userBusiness.findById(_id, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else res.send(result);
             });
@@ -104,7 +106,23 @@ class OrderController implements IBaseController <OrderBusiness> {
         }
     }
 
+    login(req: express.Request, res: express.Response): void {
+        try {
+            var userBusiness = new UserBusiness();
+            var params = req.query;
+            console.log("params: "+JSON.stringify(req.query));
+            userBusiness.retrieve(params, (error, result) => {
+                if(error) res.send({"error": "error"});
+                else res.send(result);
+            });
+        }
+        catch (e)  {
+            console.log(e);
+            res.send({"error": "error in your request"});
+
+        }
+    }
 
 }
-Object.seal(OrderController);
-export = OrderController;
+Object.seal(UserController);
+export = UserController;

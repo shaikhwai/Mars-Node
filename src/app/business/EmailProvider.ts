@@ -2,7 +2,12 @@
 import IEmailProvider = require("./interfaces/EmailProvider");
 import EmailBusiness = require("./EmailBusiness");
 import EmailModel = require("./../model/EmailModel");
+import TaskBusiness = require("./TaskBusiness");
 import Task =  require("./../model/TaskModel");
+import ITask = require("../model/interfaces/Task");
+import UserBusiness = require("./Userbusiness");
+import User = require("./../model/UserModel");
+import IUser = require("../model/interfaces/UserModel");
 
 import Imap = require('imap');
 import Util = require('util');
@@ -12,7 +17,6 @@ import stream = require('stream');
 
 import nodemailer = require('nodemailer');
 import eMailParser = require("mailparser");
-import ITask = require("../model/interfaces/Task");
 var MailParser = eMailParser.MailParser;
 
 
@@ -75,26 +79,48 @@ class EmailProvider  implements IEmailProvider {
                                     email.recivedDate = msg.recivedDate;
                                     email.attachments = attchments;
                                     email.messageId = msg.messageId;
-                                    var defaultTask : ITask = new Task();
-                                    defaultTask.assignedOn = new Date();
-                                    defaultTask.assignedTo = "Swapnil";
-                                    defaultTask.status = "open";
-                                    defaultTask.priority = "high";
-                                    defaultTask.completeBy = new Date();
-                                    email.defaultTask = defaultTask;
 
                                     var my_email=email.from[0].address;
                                     var ind=my_email.indexOf("@");
                                     var my_slice=my_email.slice((ind+1),my_email.length);
                                     my_slice = my_slice.split(".");
                                     email.fromCompany = my_slice[0];
-                                    //var x = my_email.match(/^[^@\s]+@([^@\s])+$/);
 
-                                    //console.log("attachment file name = "+ JSON.stringify(attchments));
-                                    //console.log("Email: " + JSON.stringify(email));
-                                    emailBusiness.create(email, (error, result) => {
-                                        /* if(error) callback({"error": "error"}, null);
-                                         else callback(null, {"success": "success"});*/
+                                    var userBusiness:UserBusiness = new UserBusiness();
+                                    var query = {
+                                        firstName:"waqar",
+                                        lastName:"shaikh"
+                                    };
+                                    var newData = {
+                                        firstName: "waqar",
+                                        lastName: "shaikh",
+                                        password: "heaven",
+                                        createdAt: new Date()
+                                    }
+                                    userBusiness.findOneAndUpdate(query, newData, {new:true},function(err, user){
+                                       if(user){
+                                           var defaultTask : ITask = new Task();
+                                           defaultTask.assignedOn = new Date();
+                                           defaultTask.assignedTo = user._id;
+                                           defaultTask.status = "open";
+                                           defaultTask.priority = "high";
+                                           defaultTask.completeBy = new Date();
+                                           var taskBusiness = new TaskBusiness();
+
+                                           taskBusiness.create(defaultTask, function(err, task){
+                                               if(task){
+                                                   email.defaultTask = task._id;
+                                                   emailBusiness.create(email, function(error, result){
+                                                   });
+                                               }
+                                               else{
+                                                   console.log("unable to default task.");
+                                               }
+                                           });
+                                       }
+                                        else{
+                                            console.log("Unable to find default User ");
+                                       }
                                     });
                                 });
                                 msg.on("body", function (stream) {
@@ -155,7 +181,6 @@ class EmailProvider  implements IEmailProvider {
             console.log(id);
             emailBusiness.retrieve({_id:id}, function(err, record){
                if(record){
-                   /*console.log(JSON.stringify(record[0]));*/
                    record[0].conversation.push(email);
                    emailBusiness.update(id, record[0],function(err, status){
                         if(status){

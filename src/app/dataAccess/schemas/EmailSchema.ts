@@ -47,10 +47,8 @@ class EmailSchema{
                 type: [],
                 require: false
             },
-            defaultTask:{
-                type:ITask,
-                require: false
-            },
+            defaultTask:
+                {type:mongoose.Schema.Types.ObjectId, ref:'Task'},
             messageId:{
                 type:String,
                 require: false

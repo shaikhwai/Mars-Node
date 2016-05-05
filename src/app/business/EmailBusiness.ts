@@ -44,6 +44,16 @@ class EmailBusiness  implements IEmailBusiness {
         this._emailRepository.findById(_id, callback);
     }
 
+    findAndPopulate(searchField, populateField, callback:(err: any, result: any)=>void){
+        this._emailRepository.findAndPopulate(searchField, populateField, function(err, items) {
+            console.log(items);
+            callback(err, items);
+        });
+    }
+
+    findOneAndUpdate(query, newData, options, callback:(error: any, result: any) => void){
+        this._emailRepository.findOneAndUpdate(query, newData, options, callback);
+    }
 
 }
 
