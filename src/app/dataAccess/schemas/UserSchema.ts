@@ -28,6 +28,10 @@ class UserSchema{
             createdAt:{
                 type: Date,
                 require: false
+            },
+            role:{
+                type: String,
+                require: false
             }
         });
 

@@ -26,7 +26,12 @@ class AdminSchema{
             createdAt:{
                 type: Date,
                 require: false
+            },
+            role:{
+                type: String,
+                require: false
             }
+
         });
 
         return schema;

@@ -88,17 +88,19 @@ class EmailProvider  implements IEmailProvider {
 
                                     var userBusiness:UserBusiness = new UserBusiness();
                                     var query = {
-                                        firstName:"waqar",
+                                        firstName:"Swapnil",
                                         lastName:"shaikh"
                                     };
                                     var newData = {
-                                        firstName: "waqar",
+                                        firstName: "Swapnil",
                                         lastName: "shaikh",
                                         password: "heaven",
-                                        createdAt: new Date()
+                                        createdAt: new Date(),
+                                        role:"User"
                                     }
-                                    userBusiness.findOneAndUpdate(query, newData, {new:true},function(err, user){
+                                    userBusiness.findOneAndUpdate(query, newData, {'new': true,upsert:true}, function(err, user){
                                        if(user){
+                                           console.log("User =>"+user);
                                            var defaultTask : ITask = new Task();
                                            defaultTask.assignedOn = new Date();
                                            defaultTask.assignedTo = user._id;
@@ -114,7 +116,7 @@ class EmailProvider  implements IEmailProvider {
                                                    });
                                                }
                                                else{
-                                                   console.log("unable to default task.");
+                                                   console.log("unable to default task."+ err);
                                                }
                                            });
                                        }
