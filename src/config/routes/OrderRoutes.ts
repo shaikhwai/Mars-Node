@@ -12,7 +12,7 @@ class OrderRoutes {
         var controller = this._orderController;
         router.get("/orders", this._orderController.retrieve);
         router.post("/orders",controller.create);
-        router.put("/orders/:_id", controller.update);
+        router.put("/orders", controller.update);
         router.delete("/orders/:_id", controller.delete);
         return router;
     }

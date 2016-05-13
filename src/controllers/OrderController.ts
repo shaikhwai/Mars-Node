@@ -38,10 +38,18 @@ class OrderController implements IBaseController <OrderBusiness> {
         try {
             var orderBusiness = new OrderBusiness();
             var params = req.query;
+            if(req.query.sendLastOrder === "true"){
+                console.log(req.query);
+                var params = { $query:{"fromCompany": req.query.fromCompany},$orderby:{"orderDate":-1}};
+                console.log("params are" + params);
+            }
+
             console.log("params: "+JSON.stringify(req.query));
-            orderBusiness.retrieve(params, (error, result) => {
+            orderBusiness.findAndPopulate(params,{path:'defaultTask assignedTo',populate:{path:'assignedTo'}}, (error, result) => {
                 if(error) res.send({"error": "error"});
-                else res.send(result);
+                else {res.send(result);
+                console.log(result);
+                }
             });
         }
         catch (e)  {
