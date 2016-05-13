@@ -7,8 +7,7 @@ import IBaseController = require("./interfaces/base/BaseController");
 import IUserModel = require("./../app/model/interfaces/UserModel");
 import UserBusiness = require("../app/business/Userbusiness");
 
-
-
+import Auth = require("./../interceptor/Auth/AuthInterceptor");
 
 class UserController implements IBaseController <UserBusiness> {
 
@@ -17,15 +16,17 @@ class UserController implements IBaseController <UserBusiness> {
             /*console.log(req.body);*/
             var user: IUserModel = <IUserModel>req.body;
             user.createdAt = new Date();
-            /*console.log(user);*/
+            user.role = "User"
+            var user = req.user;
+            var auth :Auth = new Auth();
             var userBusiness = new UserBusiness();
             userBusiness.create(user, (error, result) => {
                 if(error){
                     res.send({"error": "error"});
                 }
                 else{
-                    console.log("User created"+ result);
-                    res.send({"success": "success"});
+                    var token = auth.issueTokenWithUid(user);
+                    res.send({"result":result,access_token: token});
                 }
             });
         }
@@ -40,10 +41,16 @@ class UserController implements IBaseController <UserBusiness> {
         try {
             var userBusiness = new UserBusiness();
             var params = req.query;
+            delete params.access_token;
+            var user = req.user;
+            var auth :Auth = new Auth();
             console.log("params: "+JSON.stringify(req.query));
             userBusiness.retrieve(params, (error, result) => {
                 if(error) res.send({"error": "error"});
-                else res.send(result);
+                else{
+                    var token = auth.issueTokenWithUid(user);
+                    res.send({"result":result,access_token: token});
+                }
             });
         }
         catch (e)  {
@@ -57,10 +64,15 @@ class UserController implements IBaseController <UserBusiness> {
         try {
             var user: IUserModel = <IUserModel>req.body;
             var _id: string = req.params._id;
+            var user = req.user;
+            var auth :Auth = new Auth();
             var userBusiness = new UserBusiness();
             userBusiness.update(_id, user, (error, result) => {
                 if(error) res.send({"error": "error"});
-                else res.send({"success": "success"});
+                else{
+                    var token = auth.issueTokenWithUid(user);
+                    res.send({"result":result,access_token: token});
+                }
             });
         }
         catch (e)  {
@@ -74,10 +86,15 @@ class UserController implements IBaseController <UserBusiness> {
         try {
 
             var _id: string = req.params._id;
+            var user = req.user;
+            var auth :Auth = new Auth();
             var userBusiness = new UserBusiness();
             userBusiness.delete(_id, (error, result) => {
                 if(error) res.send({"error": "error"});
-                else res.send({"success": "success"});
+                else{
+                    var token = auth.issueTokenWithUid(user);
+                    res.send({"result":result,access_token: token});
+                }
             });
         }
         catch (e)  {
@@ -93,10 +110,15 @@ class UserController implements IBaseController <UserBusiness> {
             var _id: string = req.params._id;
             console.log(JSON.stringify(req.params));
             var _id = req.params;
+            var user = req.user;
+            var auth :Auth = new Auth();
             var userBusiness = new UserBusiness();
             userBusiness.findById(_id, (error, result) => {
                 if(error) res.send({"error": "error"});
-                else res.send(result);
+                else{
+                    var token = auth.issueTokenWithUid(user);
+                    res.send({"result":result,access_token: token});
+                }
             });
         }
         catch (e)  {
@@ -109,11 +131,16 @@ class UserController implements IBaseController <UserBusiness> {
     login(req: express.Request, res: express.Response): void {
         try {
             var userBusiness = new UserBusiness();
-            var params = req.query;
-            console.log("params: "+JSON.stringify(req.query));
+            var params = req.body;
+            delete params.access_token;
+            var auth = new Auth();
+            console.log("params: "+JSON.stringify(req.body));
             userBusiness.retrieve(params, (error, result) => {
                 if(error) res.send({"error": "error"});
-                else res.send(result);
+                else{
+                    var token = auth.issueTokenWithUid(result[0]);
+                    res.send({"result":result,access_token: token});
+                }
             });
         }
         catch (e)  {

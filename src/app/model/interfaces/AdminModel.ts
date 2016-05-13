@@ -6,7 +6,8 @@ import mongoose = require("mongoose");
 interface AdminModel extends mongoose.Document {
     userName : String,
     password : String,
-    createdAt: Date
+    createdAt: Date,
+    role: String
 }
 
 export = AdminModel;

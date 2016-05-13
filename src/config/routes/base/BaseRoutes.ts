@@ -5,7 +5,8 @@ import AdminRoutes = require("./../AdminRoutes");
 import UserRoutes = require("../UserRoutes");
 var app = express();
 class BaseRoutes {
-    
+
+
     get routes() {
         app.use("/", new OrderRoutes().routes);
         app.use("/", new EmailRoutes().routes);
@@ -13,5 +14,6 @@ class BaseRoutes {
         app.use("/user", new UserRoutes().routes);
         return app;
     }
+
 }
 export = BaseRoutes;

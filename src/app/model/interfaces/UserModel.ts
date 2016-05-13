@@ -10,7 +10,8 @@ interface UserModel extends mongoose.Document {
     firstName : String,
     lastName: String,
     password : String,
-    createdAt: Date
+    createdAt: Date,
+    role: String
 }
 
 export = UserModel;
