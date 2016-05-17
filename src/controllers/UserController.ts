@@ -14,13 +14,13 @@ class UserController implements IBaseController <UserBusiness> {
     create(req: express.Request, res: express.Response): void {
         try {
             /*console.log(req.body);*/
-            var user: IUserModel = <IUserModel>req.body;
-            user.createdAt = new Date();
-            user.role = "User"
+            var newUser: IUserModel = <IUserModel>req.body;
+            newUser.createdAt = new Date();
+            newUser.role = "User"
             var user = req.user;
             var auth :Auth = new Auth();
             var userBusiness = new UserBusiness();
-            userBusiness.create(user, (error, result) => {
+            userBusiness.create(newUser, (error, result) => {
                 if(error){
                     res.send({"error": "error"});
                 }
@@ -62,12 +62,12 @@ class UserController implements IBaseController <UserBusiness> {
 
     update(req: express.Request, res: express.Response): void {
         try {
-            var user: IUserModel = <IUserModel>req.body;
+            var newUserData: IUserModel = <IUserModel>req.body;
             var _id: string = req.params._id;
             var user = req.user;
             var auth :Auth = new Auth();
             var userBusiness = new UserBusiness();
-            userBusiness.update(_id, user, (error, result) => {
+            userBusiness.update(_id, newUserData, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else{
                     var token = auth.issueTokenWithUid(user);

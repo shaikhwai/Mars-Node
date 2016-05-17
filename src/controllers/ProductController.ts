@@ -1,32 +1,29 @@
 /**
- * Created by waqar on 23/3/16.
+ * Created by waqar on 16/5/16.
  */
 import express = require("express");
-import OrderBusiness = require("./../app/business/OrderBusiness");
-import EmailProvider = require("./../app/business/EmailProvider");
+import ProductBusiness = require("./../app/business/ProductBusiness");
 import IBaseController = require("./interfaces/base/BaseController");
-import IOrderModel = require("./../app/model/interfaces/OrderModel");
+import IProductModel = require("./../app/model/interfaces/ProductModel");
+import ProductBusiness = require("../app/business/ProductBusiness");
+
 import Auth = require("./../interceptor/Auth/AuthInterceptor");
-import Imap = require('imap');
-import Util = require('util');
-import fs = require('fs');
-/*import inspect = require("util").inspect;*/
-//import inspect = Util.inspect;
 
-
-
-class OrderController implements IBaseController <OrderBusiness> {
+class ProductController implements IBaseController <ProductBusiness> {
 
     create(req: express.Request, res: express.Response): void {
         try {
-            console.log(req.body);
-            var order: IOrderModel = <IOrderModel>req.body;
+            /*console.log(req.body);*/
+            var product: IProductModel = <IProductModel>req.body;
             var user = req.user;
             var auth :Auth = new Auth();
-            var orderBusiness = new OrderBusiness();
-            orderBusiness.create(order, (error, result) => {
-                if(error) res.send({"error": error});
+            var productBusiness = new ProductBusiness();
+            productBusiness.create(product, (error, result) => {
+                if(error){
+                    res.send({"error": "error"});
+                }
                 else{
+                    console.log("product created"+ result);
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
                 }
@@ -41,19 +38,13 @@ class OrderController implements IBaseController <OrderBusiness> {
 
     retrieve(req: express.Request, res: express.Response): void {
         try {
-            var orderBusiness = new OrderBusiness();
+            var productBusiness = new ProductBusiness();
             var params = req.query;
             delete params.access_token;
             var user = req.user;
             var auth :Auth = new Auth();
-            if(req.query.sendLastOrder === "true"){
-                console.log(req.query);
-                var params = { $query:{"fromCompany": req.query.fromCompany},$orderby:{"orderDate":-1}};
-                console.log("params are" + params);
-            }
-
             console.log("params: "+JSON.stringify(req.query));
-            orderBusiness.findAndPopulate(params,{path:'defaultTask assignedTo',populate:{path:'assignedTo'}}, (error, result) => {
+            productBusiness.retrieve(params, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else{
                     var token = auth.issueTokenWithUid(user);
@@ -70,12 +61,12 @@ class OrderController implements IBaseController <OrderBusiness> {
 
     update(req: express.Request, res: express.Response): void {
         try {
-            var order: IOrderModel = <IOrderModel>req.body;
+            var product: IProductModel = <IProductModel>req.body;
             var _id: string = req.params._id;
             var user = req.user;
             var auth :Auth = new Auth();
-            var orderBusiness = new OrderBusiness();
-            orderBusiness.update(_id, order, (error, result) => {
+            var productBusiness = new ProductBusiness();
+            productBusiness.update(_id, product, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else{
                     var token = auth.issueTokenWithUid(user);
@@ -96,8 +87,8 @@ class OrderController implements IBaseController <OrderBusiness> {
             var _id: string = req.params._id;
             var user = req.user;
             var auth :Auth = new Auth();
-            var orderBusiness = new OrderBusiness();
-            orderBusiness.delete(_id, (error, result) => {
+            var productBusiness = new ProductBusiness();
+            productBusiness.delete(_id, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else{
                     var token = auth.issueTokenWithUid(user);
@@ -120,8 +111,8 @@ class OrderController implements IBaseController <OrderBusiness> {
             var _id = req.params;
             var user = req.user;
             var auth :Auth = new Auth();
-            var orderBusiness = new OrderBusiness();
-            orderBusiness.findById(_id, (error, result) => {
+            var productBusiness = new ProductBusiness();
+            productBusiness.findById(_id, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else{
                     var token = auth.issueTokenWithUid(user);
@@ -136,7 +127,6 @@ class OrderController implements IBaseController <OrderBusiness> {
         }
     }
 
-
 }
-Object.seal(OrderController);
-export = OrderController;
+Object.seal(ProductController);
+export = ProductController;

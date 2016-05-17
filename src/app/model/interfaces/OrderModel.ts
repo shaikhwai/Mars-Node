@@ -10,7 +10,6 @@ var schema = mongoose.Schema;
 
 interface OrderModel extends mongoose.Document {
 
-
     orderDate: Date;
     completionDate: Date;
     fromCompany: string;

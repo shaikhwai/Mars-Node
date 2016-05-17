@@ -6,16 +6,16 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "node/node.d.ts": {
-      "commit": "fe563dff3428bac1260d1794e2c2ecf8f097535a"
+      "commit": "6d0e826824da52204c1c93f92cecbc961ac84fa9"
     },
     "express/express.d.ts": {
-      "commit": "fe563dff3428bac1260d1794e2c2ecf8f097535a"
+      "commit": "6d0e826824da52204c1c93f92cecbc961ac84fa9"
     },
     "serve-static/serve-static.d.ts": {
-      "commit": "fe563dff3428bac1260d1794e2c2ecf8f097535a"
+      "commit": "6d0e826824da52204c1c93f92cecbc961ac84fa9"
     },
     "mime/mime.d.ts": {
-      "commit": "fe563dff3428bac1260d1794e2c2ecf8f097535a"
+      "commit": "6d0e826824da52204c1c93f92cecbc961ac84fa9"
     },
     "mongoose/mongoose.d.ts": {
       "commit": "5e960679e6f9ae6ce905b1db0ad36fc189cd2eca"
@@ -31,6 +31,30 @@
     },
     "method-override/method-override.d.ts": {
       "commit": "fe563dff3428bac1260d1794e2c2ecf8f097535a"
+    },
+    "express-serve-static-core/express-serve-static-core.d.ts": {
+      "commit": "6d0e826824da52204c1c93f92cecbc961ac84fa9"
+    },
+    "nodemailer-direct-transport/nodemailer-direct-transport.d.ts": {
+      "commit": "b332be4e133ae75c915c8dd2f4b1fe9ac4a45aa4"
+    },
+    "nodemailer-smtp-transport/nodemailer-smtp-transport.d.ts": {
+      "commit": "b332be4e133ae75c915c8dd2f4b1fe9ac4a45aa4"
+    },
+    "nodemailer/nodemailer-types.d.ts": {
+      "commit": "b332be4e133ae75c915c8dd2f4b1fe9ac4a45aa4"
+    },
+    "nodemailer/nodemailer.d.ts": {
+      "commit": "b332be4e133ae75c915c8dd2f4b1fe9ac4a45aa4"
+    },
+    "mailparser/mailparser.d.ts": {
+      "commit": "b332be4e133ae75c915c8dd2f4b1fe9ac4a45aa4"
+    },
+    "passport-http-bearer/passport-http-bearer.d.ts": {
+      "commit": "6d0e826824da52204c1c93f92cecbc961ac84fa9"
+    },
+    "passport/passport.d.ts": {
+      "commit": "6d0e826824da52204c1c93f92cecbc961ac84fa9"
     }
   }
 }

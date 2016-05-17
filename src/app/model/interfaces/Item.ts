@@ -8,12 +8,8 @@
 import mongoose = require("mongoose");
 
 interface ItemModel extends mongoose.Document {
-    name: string;
-    detail: string;
-    varient: string;
+    productId: string;
     qty: number;
-    unitRate: number;
-    amount: number;
 }
 
 export = ItemModel;
