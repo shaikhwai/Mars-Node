@@ -68,7 +68,7 @@ class EmailProvider  implements IEmailProvider {
                                     attchments.push({fileName:fileName});
                                 });
                                 parser.on("end", function(msg) {
-                                    /*console.log(JSON.stringify(msg));*/
+                                    console.log(JSON.stringify(msg));
                                     var email = new EmailModel();
                                     email.html = msg.html;
                                     email.text = msg.text;
@@ -98,32 +98,47 @@ class EmailProvider  implements IEmailProvider {
                                         createdAt: new Date(),
                                         role:"User"
                                     }
-                                    userBusiness.findOneAndUpdate(query, newData, {'new': true,upsert:true}, function(err, user){
-                                       if(user){
-                                           console.log("User =>"+user);
-                                           var defaultTask : ITask = new Task();
-                                           defaultTask.assignedOn = new Date();
-                                           defaultTask.assignedTo = user._id;
-                                           defaultTask.status = "open";
-                                           defaultTask.priority = "high";
-                                           defaultTask.completeBy = new Date();
-                                           var taskBusiness = new TaskBusiness();
+                                    if(msg.references){
+                                        console.log(" Got reply");
+                                        emailBusiness.findOneAndUpdate({messageId:msg.references[0]},{$push:{conversation:email}},{}, function(err, result){
+                                           if(result.length){
+                                               console.log("its got updated.");
 
-                                           taskBusiness.create(defaultTask, function(err, task){
-                                               if(task){
-                                                   email.defaultTask = task._id;
-                                                   emailBusiness.create(email, function(error, result){
-                                                   });
-                                               }
-                                               else{
-                                                   console.log("unable to default task."+ err);
-                                               }
-                                           });
-                                       }
-                                        else{
-                                            console.log("Unable to find default User ");
-                                       }
-                                    });
+                                           }
+                                            if(err){
+
+                                           }
+                                        });
+                                    }
+                                    else{
+                                        userBusiness.findOneAndUpdate(query, newData, {'new': true,upsert:true}, function(err, user){
+                                            if(user){
+                                                console.log("User =>"+user);
+                                                var defaultTask : ITask = new Task();
+                                                defaultTask.assignedOn = new Date();
+                                                defaultTask.assignedTo = user._id;
+                                                defaultTask.status = "open";
+                                                defaultTask.priority = "high";
+                                                defaultTask.completeBy = new Date();
+                                                var taskBusiness = new TaskBusiness();
+
+                                                taskBusiness.create(defaultTask, function(err, task){
+                                                    if(task){
+                                                        email.defaultTask = task._id;
+                                                        emailBusiness.create(email, function(error, result){
+                                                        });
+                                                    }
+                                                    else{
+                                                        console.log("unable to default task."+ err);
+                                                    }
+                                                });
+                                            }
+                                            else{
+                                                console.log("Unable to find default User ");
+                                            }
+                                        });
+                                    }
+
                                 });
                                 msg.on("body", function (stream) {
                                     stream.on("data", function (chunk) {

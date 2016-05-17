@@ -154,6 +154,7 @@ class EmailController implements IBaseController <EmailBusiness> {
             var auth :Auth = new Auth();
             console.log(JSON.stringify(body))
             console.log("send mail got hit");
+
             var emailProvider = new EmailProvider();
             emailProvider.sendMail(id, email, function(err, data){
                 if(err){

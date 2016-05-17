@@ -46,7 +46,7 @@ class EmailBusiness  implements IEmailBusiness {
 
     findAndPopulate(searchField, populateField, callback:(err: any, result: any)=>void){
         this._emailRepository.findAndPopulate(searchField, populateField, function(err, items) {
-            console.log(items);
+            /*console.log(items);*/
             callback(err, items);
         });
     }
