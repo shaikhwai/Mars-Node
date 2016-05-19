@@ -4,16 +4,15 @@
 import express = require("express");
 
 /*var router = express.Router();*/
-class AdminInterceptor {
+class UserInterceptor {
 
     constructor () {
     }
 
 
     login(req, res, next){
-        if((req.body.userName === undefined) || (req.body.password === undefined)) {
+        if((req.body.firstName === undefined) || (req.body.password === undefined)) {
             console.log("Interceptor:login varification failed.");
-            /*return res.send(403, { message: "Fields verification failed" });*/
             return res.status(403).send({ message: "Fields verification failed" });
         }
         console.log("Interceptor:login varification done ");
@@ -40,8 +39,7 @@ class AdminInterceptor {
         }
         next();
     }
-
 }
 
-Object.seal(AdminInterceptor);
-export = AdminInterceptor;
+Object.seal(UserInterceptor);
+export = UserInterceptor;

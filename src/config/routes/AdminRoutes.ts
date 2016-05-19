@@ -23,12 +23,12 @@ class AdminRoutes {
         var controller = this._adminController;
         var interceptor = this._adminInterceptor;
         var auth = this._auth;
-        router.get("/", auth.requiresAuth, controller.retrieve);
-        router.get("/login",  interceptor.login, controller.login);
+        router.get("/", auth.requiresAuth, interceptor.retrieve, controller.retrieve);
+        router.post("/login",  interceptor.login, controller.login);
         router.post("/user", auth.requiresAuth, controller.user);
         router.post("",controller.create);
-        router.put("/:_id",  auth.requiresAuth, controller.update);
-        router.delete("/:_id", auth.requiresAuth, controller.delete);
+        router.put("/:_id",  auth.requiresAuth, interceptor.update, controller.update);
+        router.delete("/:_id", auth.requiresAuth, interceptor.delete, controller.delete);
         return router;
     }
 

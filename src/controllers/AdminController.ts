@@ -134,6 +134,7 @@ class AdminController implements IBaseController <AdminBusiness> {
                 if(error) res.send({"error": "error"});
 
                 else{
+                    console.log(result);
                     var token = auth.issueTokenWithUid(result[0]);
                     res.send({"result":result[0],access_token: token});
                 }

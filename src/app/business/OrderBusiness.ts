@@ -39,7 +39,7 @@ class OrderBusiness  implements IOrderBusiness {
         console.log("default task"+ JSON.stringify(item.defaultTask));
         var defaultTask : ITaskModel = new TaskModel();
         defaultTask.assignedOn = item.defaultTask.assignedOn;
-        defaultTask.assignedTo = item.defaultTask.assignedTo._id;
+        defaultTask.assignedTo = item.defaultTask.assignedTo;
         defaultTask.completeBy = item.defaultTask.completeBy;
         defaultTask.priority = item.defaultTask.priority;
         defaultTask.status = item.defaultTask.status;

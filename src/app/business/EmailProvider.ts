@@ -100,8 +100,9 @@ class EmailProvider  implements IEmailProvider {
                                     }
                                     if(msg.references){
                                         console.log(" Got reply");
+                                        email.by ="Client"
                                         emailBusiness.findOneAndUpdate({messageId:msg.references[0]},{$push:{conversation:email}},{}, function(err, result){
-                                           if(result.length){
+                                           if(result){
                                                console.log("its got updated.");
 
                                            }
@@ -195,15 +196,10 @@ class EmailProvider  implements IEmailProvider {
                 return console.log("we got error while sending mail"+error);
             }
             console.log('Message sent: ' + info.response);
-            console.log(id);
-            emailBusiness.retrieve({_id:id}, function(err, record){
+            email.by = "User";
+            emailBusiness.findOneAndUpdate({_id:id},{$push:{conversation:email}},{}, function(err, record){
                if(record){
-                   record[0].conversation.push(email);
-                   emailBusiness.update(id, record[0],function(err, status){
-                        if(status){
-                            callback(null, status);
-                        }
-                   });
+                   callback(null, record);
                }
                 else{
                    console.log("found error =>"+err);

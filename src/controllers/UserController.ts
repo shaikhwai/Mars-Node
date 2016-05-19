@@ -150,6 +150,51 @@ class UserController implements IBaseController <UserBusiness> {
         }
     }
 
+    task(req: express.Request, res: express.Response): void{
+        try {
+            var _id: string = req.params._id;
+            console.log(JSON.stringify(req.params));
+            var _id = req.params;
+            var user = req.user;
+            var auth :Auth = new Auth();
+            var userBusiness = new UserBusiness();
+            userBusiness.task(user.id, (error, result) => {
+                if(error) res.send({"error": "error"});
+                else{
+                    var token = auth.issueTokenWithUid(user);
+                    res.send({"result":result,access_token: token});
+                }
+            });
+        }
+        catch (e)  {
+            console.log(e);
+            res.send({"error": "error in your request"});
+
+        }
+    }
+
+    order(req: express.Request, res: express.Response): void{
+        try {
+            var _id: string = req.params._id;
+            console.log(JSON.stringify(req.params));
+            var _id = req.params;
+            var user = req.user;
+            var auth :Auth = new Auth();
+            var userBusiness = new UserBusiness();
+            userBusiness.order(user.id, (error, result) => {
+                if(error) res.send({"error": "error"});
+                else{
+                    var token = auth.issueTokenWithUid(user);
+                    res.send({"result":result,access_token: token});
+                }
+            });
+        }
+        catch (e)  {
+            console.log(e);
+            res.send({"error": "error in your request"});
+
+        }
+    }
 }
 Object.seal(UserController);
 export = UserController;
