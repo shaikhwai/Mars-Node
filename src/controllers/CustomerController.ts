@@ -60,7 +60,7 @@ class CustomerController implements IBaseController <CustomerBusiness> {
                     res.send({"result":result,access_token: token});
                 }
             });*/
-            customerBusiness.retrieve(params, (error, result) => {
+            customerBusiness.findAndPopulate(params, {path:'shippingAddress billingAddress'}, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else{
                     var token = auth.issueTokenWithUid(user);
