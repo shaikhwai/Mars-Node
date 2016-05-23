@@ -11,8 +11,8 @@ interface CustomerModel extends mongoose.Document {
     fromCompany: string;
     contactPerson: string;
     contactNumber: number;
-    shippingAddress: Array<{type:mongoose.Schema.Types.ObjectId, ref:'IAddress'}>;
-    billingAddress: Array<{type:mongoose.Schema.Types.ObjectId, ref:'IAddress'}>;
+    shippingAddress: {type:mongoose.Schema.Types.ObjectId, ref:'IAddress'};
+    billingAddress: {type:mongoose.Schema.Types.ObjectId, ref:'IAddress'};
 
 }
 

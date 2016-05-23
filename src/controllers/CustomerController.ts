@@ -33,6 +33,7 @@ class CustomerController implements IBaseController <CustomerBusiness> {
                 if(error) res.send({"error": error});
                 else{
                     var token = auth.issueTokenWithUid(user);
+                    console.log(result._id);
                     res.send({"result":result,access_token: token});
                 }
             });

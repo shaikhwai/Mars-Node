@@ -22,9 +22,9 @@ class CustomerSchema{
                 type: Number,
                 require: false
             },
-            shippingAddress: [{type:mongoose.Schema.Types.ObjectId, ref:'Address'}],
+            shippingAddress: {type:mongoose.Schema.Types.ObjectId, ref:'Address'},
 
-            billingAddress: [{type:mongoose.Schema.Types.ObjectId, ref:'Address'}]
+            billingAddress: {type:mongoose.Schema.Types.ObjectId, ref:'Address'}
         });
 
         return schema;
