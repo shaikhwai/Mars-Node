@@ -22,7 +22,7 @@ class UserController implements IBaseController <UserBusiness> {
             var userBusiness = new UserBusiness();
             userBusiness.create(newUser, (error, result) => {
                 if(error){
-                    res.send({"error": "error"});
+                    res.status(403).send({ message: error });
                 }
                 else{
                     var token = auth.issueTokenWithUid(user);
@@ -32,7 +32,7 @@ class UserController implements IBaseController <UserBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": e.message});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -46,7 +46,7 @@ class UserController implements IBaseController <UserBusiness> {
             var auth :Auth = new Auth();
             console.log("params: "+JSON.stringify(req.query));
             userBusiness.retrieve(params, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -55,7 +55,7 @@ class UserController implements IBaseController <UserBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -68,7 +68,7 @@ class UserController implements IBaseController <UserBusiness> {
             var auth :Auth = new Auth();
             var userBusiness = new UserBusiness();
             userBusiness.update(_id, newUserData, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -77,7 +77,7 @@ class UserController implements IBaseController <UserBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -90,7 +90,7 @@ class UserController implements IBaseController <UserBusiness> {
             var auth :Auth = new Auth();
             var userBusiness = new UserBusiness();
             userBusiness.delete(_id, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -99,7 +99,7 @@ class UserController implements IBaseController <UserBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -114,7 +114,7 @@ class UserController implements IBaseController <UserBusiness> {
             var auth :Auth = new Auth();
             var userBusiness = new UserBusiness();
             userBusiness.findById(_id, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -123,7 +123,7 @@ class UserController implements IBaseController <UserBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -136,7 +136,7 @@ class UserController implements IBaseController <UserBusiness> {
             var auth = new Auth();
             console.log("params: "+JSON.stringify(req.body));
             userBusiness.retrieve(params, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(result[0]);
                     res.send({"result":result,access_token: token});
@@ -145,7 +145,7 @@ class UserController implements IBaseController <UserBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -159,7 +159,7 @@ class UserController implements IBaseController <UserBusiness> {
             var auth :Auth = new Auth();
             var userBusiness = new UserBusiness();
             userBusiness.task(user.id, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -168,7 +168,7 @@ class UserController implements IBaseController <UserBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -182,7 +182,7 @@ class UserController implements IBaseController <UserBusiness> {
             var auth :Auth = new Auth();
             var userBusiness = new UserBusiness();
             userBusiness.order(user.id, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -191,7 +191,7 @@ class UserController implements IBaseController <UserBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }

@@ -8,7 +8,7 @@
 import mongoose = require("mongoose");
 
 interface ItemModel extends mongoose.Document {
-    productId: string;
+    productId: {type:mongoose.Schema.Types.ObjectId, ref:'Product'};
     qty: number;
 }
 

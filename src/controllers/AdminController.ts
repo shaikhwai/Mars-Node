@@ -22,13 +22,13 @@ class AdminController implements IBaseController <AdminBusiness> {
             console.log(admin);
             var adminBusiness = new AdminBusiness();
             adminBusiness.create(admin, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else res.send({"success": "success"});
             });
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": e.message});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -41,7 +41,7 @@ class AdminController implements IBaseController <AdminBusiness> {
             var auth :Auth = new Auth();
             console.log("params: "+JSON.stringify(req.query));
             adminBusiness.retrieve(params, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -50,7 +50,7 @@ class AdminController implements IBaseController <AdminBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -63,7 +63,7 @@ class AdminController implements IBaseController <AdminBusiness> {
             var user = req.user;
             var auth :Auth = new Auth();
             adminBusiness.update(_id, admin, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -72,7 +72,7 @@ class AdminController implements IBaseController <AdminBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -85,7 +85,7 @@ class AdminController implements IBaseController <AdminBusiness> {
             var user = req.user;
             var auth :Auth = new Auth();
             adminBusiness.delete(_id, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -94,7 +94,7 @@ class AdminController implements IBaseController <AdminBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -109,7 +109,7 @@ class AdminController implements IBaseController <AdminBusiness> {
             var auth :Auth = new Auth();
             var adminBusiness = new AdminBusiness();
             adminBusiness.findById(_id, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -118,7 +118,7 @@ class AdminController implements IBaseController <AdminBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -131,7 +131,7 @@ class AdminController implements IBaseController <AdminBusiness> {
             var auth = new Auth();
             console.log("params: "+JSON.stringify(req.body));
             adminBusiness.retrieve(params, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
 
                 else{
                     console.log(result);
@@ -142,7 +142,7 @@ class AdminController implements IBaseController <AdminBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -156,7 +156,7 @@ class AdminController implements IBaseController <AdminBusiness> {
             var auth :Auth = new Auth();
             var userBusiness = new UserBusiness();
             userBusiness.create(user, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -165,7 +165,7 @@ class AdminController implements IBaseController <AdminBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": e.message});
+            res.status(403).send({ message: e.message });
 
         }
     }

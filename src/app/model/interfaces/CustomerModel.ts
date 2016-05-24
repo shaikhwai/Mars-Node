@@ -4,6 +4,7 @@
 import IAddress = require("./Address");
 import ITask = require("./Task");
 import mongoose = require("mongoose");
+import IContract = require("./ContractModel");
 var schema = mongoose.Schema;
 
 interface CustomerModel extends mongoose.Document {
@@ -13,6 +14,7 @@ interface CustomerModel extends mongoose.Document {
     contactNumber: number;
     shippingAddress: {type:mongoose.Schema.Types.ObjectId, ref:'IAddress'};
     billingAddress: {type:mongoose.Schema.Types.ObjectId, ref:'IAddress'};
+    contract: Array<IContract>;
 
 }
 

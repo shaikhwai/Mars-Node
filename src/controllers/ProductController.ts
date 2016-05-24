@@ -20,7 +20,7 @@ class ProductController implements IBaseController <ProductBusiness> {
             var productBusiness = new ProductBusiness();
             productBusiness.create(product, (error, result) => {
                 if(error){
-                    res.send({"error": "error"});
+                    res.status(403).send({ message: error });
                 }
                 else{
                     console.log("product created"+ result);
@@ -31,7 +31,7 @@ class ProductController implements IBaseController <ProductBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": e.message});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -45,7 +45,7 @@ class ProductController implements IBaseController <ProductBusiness> {
             var auth :Auth = new Auth();
             console.log("params: "+JSON.stringify(req.query));
             productBusiness.retrieve(params, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -54,7 +54,7 @@ class ProductController implements IBaseController <ProductBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -67,7 +67,7 @@ class ProductController implements IBaseController <ProductBusiness> {
             var auth :Auth = new Auth();
             var productBusiness = new ProductBusiness();
             productBusiness.update(_id, product, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -76,7 +76,7 @@ class ProductController implements IBaseController <ProductBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -89,7 +89,7 @@ class ProductController implements IBaseController <ProductBusiness> {
             var auth :Auth = new Auth();
             var productBusiness = new ProductBusiness();
             productBusiness.delete(_id, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -98,7 +98,7 @@ class ProductController implements IBaseController <ProductBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -113,7 +113,7 @@ class ProductController implements IBaseController <ProductBusiness> {
             var auth :Auth = new Auth();
             var productBusiness = new ProductBusiness();
             productBusiness.findById(_id, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -122,7 +122,7 @@ class ProductController implements IBaseController <ProductBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }

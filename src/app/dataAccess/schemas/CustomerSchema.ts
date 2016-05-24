@@ -2,6 +2,7 @@
 import DataAccess = require("./../../dataAccess/DataAccess");
 import ICustomerModel = require("./../../model/interfaces/CustomerModel");
 import IAddressModel = require("./../../model/interfaces/Address");
+import IContractModel = require("./../../model/interfaces/ContractModel");
 
 var mongoose = DataAccess.mongooseInstance;
 var mongooseConnection = DataAccess.mongooseConnection;
@@ -22,9 +23,16 @@ class CustomerSchema{
                 type: Number,
                 require: false
             },
-            shippingAddress: {type:mongoose.Schema.Types.ObjectId, ref:'Address'},
+            shippingAddress: {
+                type:mongoose.Schema.Types.ObjectId, ref:'Address'
+            },
+            billingAddress: {
+                type:mongoose.Schema.Types.ObjectId, ref:'Address'
+            },
+            contract: {
+                type: [IContractModel]
+            }
 
-            billingAddress: {type:mongoose.Schema.Types.ObjectId, ref:'Address'}
         });
 
         return schema;

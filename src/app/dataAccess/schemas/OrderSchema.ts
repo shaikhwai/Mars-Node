@@ -104,8 +104,8 @@ class OrderSchema {
                 require: false
             },
             items: {
-                type: [],
-                require: true
+                type:[IItem],
+                require: false
             },
             billingAddress: {
                 type: IAddress,

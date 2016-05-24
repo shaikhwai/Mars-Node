@@ -23,7 +23,7 @@ class OrderController implements IBaseController <OrderBusiness> {
             var auth :Auth = new Auth();
             var orderBusiness = new OrderBusiness();
             orderBusiness.create(order, (error, result) => {
-                if(error) res.send({"error": error});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -32,7 +32,7 @@ class OrderController implements IBaseController <OrderBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": e.message});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -51,9 +51,10 @@ class OrderController implements IBaseController <OrderBusiness> {
             }
 
             console.log("params: "+JSON.stringify(req.query));
-            orderBusiness.findAndPopulate(params,{path:'defaultTask customer',  populate:{path:'items'}, populate:{path:'assignedTo'}}, (error, result) => {
+            orderBusiness.findAndPopulate(params,{path:'defaultTask customer',  populate:{path:'items.productId'}, populate:{path:'assignedTo'}}, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else{
+                    console.log(JSON.stringify(result));
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
                 }
@@ -61,7 +62,7 @@ class OrderController implements IBaseController <OrderBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -74,7 +75,7 @@ class OrderController implements IBaseController <OrderBusiness> {
             var auth :Auth = new Auth();
             var orderBusiness = new OrderBusiness();
             orderBusiness.update(_id, order, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -83,7 +84,7 @@ class OrderController implements IBaseController <OrderBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -96,7 +97,7 @@ class OrderController implements IBaseController <OrderBusiness> {
             var auth :Auth = new Auth();
             var orderBusiness = new OrderBusiness();
             orderBusiness.delete(_id, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -105,7 +106,7 @@ class OrderController implements IBaseController <OrderBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -120,7 +121,7 @@ class OrderController implements IBaseController <OrderBusiness> {
             var auth :Auth = new Auth();
             var orderBusiness = new OrderBusiness();
             orderBusiness.findById(_id, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -129,7 +130,7 @@ class OrderController implements IBaseController <OrderBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }

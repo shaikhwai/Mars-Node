@@ -14,7 +14,7 @@ class AdminInterceptor {
         if((req.body.userName === undefined) || (req.body.password === undefined)) {
             console.log("Interceptor:login varification failed.");
             /*return res.send(403, { message: "Fields verification failed" });*/
-            return res.status(403).send({ message: "Fields verification failed" });
+            return res.status(400).send({ message: "Fields verification failed" });
         }
         console.log("Interceptor:login varification done ");
         next();
@@ -28,7 +28,7 @@ class AdminInterceptor {
     update(req, res, next){
         if(req.params._id === undefined){
             console.log("Interceptor:login varification failed.");
-            return res.status(403).send({ message: "Fields verification failed" });
+            return res.status(400).send({ message: "Fields verification failed" });
         }
         next();
     }
@@ -36,7 +36,7 @@ class AdminInterceptor {
     delete(req, res, next){
         if(req.params._id === undefined){
             console.log("Interceptor:login varification failed.");
-            return res.status(403).send({ message: "Fields verification failed" });
+            return res.status(400).send({ message: "Fields verification failed" });
         }
         next();
     }

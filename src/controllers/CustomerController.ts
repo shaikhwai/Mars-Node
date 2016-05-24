@@ -10,6 +10,8 @@ import CustomerBusiness = require("./../app/business/CustomerBusiness");
 import EmailProvider = require("./../app/business/EmailProvider");
 import IBaseController = require("./interfaces/base/BaseController");
 import ICustomerModel = require("./../app/model/interfaces/CustomerModel");
+import IContractModel = require("./../app/model/interfaces/ContractModel");
+import ContractModel = require("./../app/model/ContractModel");
 import Auth = require("./../interceptor/Auth/AuthInterceptor");
 import Imap = require('imap');
 import Util = require('util');
@@ -29,8 +31,20 @@ class CustomerController implements IBaseController <CustomerBusiness> {
             var user = req.user;
             var auth :Auth = new Auth();
             var customerBusiness = new CustomerBusiness();
+            customer.contract = new Array<ContractModel>();
+            var first :IContractModel = new ContractModel();
+            first.productId = "5739b4bd8de25a2113012ec9";
+            first.item = "test";
+            first.unitRate =4;
+            var second :IContractModel = new ContractModel();
+            second.productId = "5739b4e58de25a2113012eca";
+            second.item = "Dettol Liquid Soap";
+            second.unitRate =4;
+
+            customer.contract.push(first);
+            customer.contract.push(second);
             customerBusiness.create(customer, (error, result) => {
-                if(error) res.send({"error": error});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     console.log(result._id);
@@ -40,7 +54,7 @@ class CustomerController implements IBaseController <CustomerBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": e.message});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -61,7 +75,7 @@ class CustomerController implements IBaseController <CustomerBusiness> {
                     res.send({"result":result,access_token: token});
                 }
             });*/
-            customerBusiness.findAndPopulate(params, {path:'shippingAddress billingAddress'}, (error, result) => {
+            customerBusiness.findAndPopulate(params, {path:'shippingAddress billingAddress, productId'}, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else{
                     var token = auth.issueTokenWithUid(user);
@@ -71,7 +85,7 @@ class CustomerController implements IBaseController <CustomerBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -84,7 +98,7 @@ class CustomerController implements IBaseController <CustomerBusiness> {
             var auth :Auth = new Auth();
             var customerBusiness = new CustomerBusiness();
             customerBusiness.update(_id, customer, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -93,7 +107,7 @@ class CustomerController implements IBaseController <CustomerBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -106,7 +120,7 @@ class CustomerController implements IBaseController <CustomerBusiness> {
             var auth :Auth = new Auth();
             var customerBusiness = new CustomerBusiness();
             customerBusiness.delete(_id, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -115,7 +129,7 @@ class CustomerController implements IBaseController <CustomerBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
@@ -130,7 +144,7 @@ class CustomerController implements IBaseController <CustomerBusiness> {
             var auth :Auth = new Auth();
             var customerBusiness = new CustomerBusiness();
             customerBusiness.findById(_id, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error) res.status(403).send({ message: error });
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -139,7 +153,7 @@ class CustomerController implements IBaseController <CustomerBusiness> {
         }
         catch (e)  {
             console.log(e);
-            res.send({"error": "error in your request"});
+            res.status(403).send({ message: e.message });
 
         }
     }
