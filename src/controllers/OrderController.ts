@@ -13,8 +13,6 @@ import fs = require('fs');
 /*import inspect = require("util").inspect;*/
 //import inspect = Util.inspect;
 
-
-
 class OrderController implements IBaseController <OrderBusiness> {
 
     create(req: express.Request, res: express.Response): void {
