@@ -51,7 +51,7 @@ class OrderController implements IBaseController <OrderBusiness> {
             }
 
             console.log("params: "+JSON.stringify(req.query));
-            orderBusiness.findAndPopulate(params,{path:'defaultTask customer',  populate:{path:'items.productId'}, populate:{path:'assignedTo'}}, (error, result) => {
+            orderBusiness.findAndPopulate(params,{path:'defaultTask customer items.productId',model:"Product", populate:{path:'assignedTo'}}, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else{
                     console.log(JSON.stringify(result));
