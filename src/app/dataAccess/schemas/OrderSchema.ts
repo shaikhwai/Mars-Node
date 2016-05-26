@@ -104,7 +104,8 @@ class OrderSchema {
                 require: false
             },
             items: {
-                type:[IItem],
+                type:[{productId:{type:mongoose.Schema.Types.ObjectId, ref:'Product'},
+                qty: Number}],
                 require: false
             },
             billingAddress: {
