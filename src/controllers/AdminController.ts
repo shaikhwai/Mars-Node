@@ -8,8 +8,10 @@ import IAdminModel = require("./../app/model/interfaces/AdminModel");
 import AdminModel = require("./../app/model/AdminModel");
 import UserBusiness = require("./../app/business/Userbusiness");
 import IUserModel = require("./../app/model/interfaces/UserModel");
+import UserMOdel = require("./../app/model/UserModel");
 
 import Auth = require("./../interceptor/Auth/AuthInterceptor");
+import UserModel = require("../app/model/UserModel");
 
 
 class AdminController implements IBaseController <AdminBusiness> {
@@ -153,7 +155,7 @@ class AdminController implements IBaseController <AdminBusiness> {
                     res.send({"result":result[0],access_token: token});
                 }
                 else{
-                    res.status(204).send("Invalid UserName or Password.");
+                    res.status(401).send({message:"Invalid UserName or Password."});
                 }
             });
         }
@@ -167,7 +169,7 @@ class AdminController implements IBaseController <AdminBusiness> {
     user(req: express.Request, res: express.Response): void{
         try {
             console.log(req.body);
-            var user: IUserModel = <IUserModel>req.body;
+            var user: UserModel = <UserModel>req.body;
             user.createdAt = new Date();
             var user = req.user;
             var auth :Auth = new Auth();

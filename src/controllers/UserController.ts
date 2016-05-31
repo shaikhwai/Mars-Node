@@ -153,7 +153,7 @@ class UserController implements IBaseController <UserBusiness> {
                     res.send({"result":result,access_token: token});
                 }
                 else{
-                    res.status(204).send("Invalid UserName or Password.");
+                    res.status(401).send({message:"Invalid UserName or Password."});
                 }
             });
         }
