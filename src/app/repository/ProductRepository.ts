@@ -6,7 +6,7 @@ import IProductModel = require("./../model/interfaces/ProductModel");
 import ProductSchema = require("./../dataAccess/schemas/ProductSchema");
 import RepositoryBase = require("./base/RepositoryBase");
 
-class ProductRepository extends RepositoryBase<IProductModel> {
+class ProductRepository extends RepositoryBase<ProductModel> {
     constructor () {
         super(ProductSchema);
     }

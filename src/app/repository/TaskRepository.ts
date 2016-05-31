@@ -6,7 +6,7 @@ import ITaskModel = require("./../model/interfaces/Task");
 import TaskSchema = require("./../dataAccess/schemas/TaskSchema");
 import RepositoryBase = require("./base/RepositoryBase");
 
-class TaskRepository extends RepositoryBase<ITaskModel> {
+class TaskRepository extends RepositoryBase<TaskModel> {
     constructor () {
         super(TaskSchema);
     }

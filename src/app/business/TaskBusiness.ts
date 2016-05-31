@@ -14,7 +14,7 @@ class TaskBusiness  implements ITaskBusiness {
         this._taskRepository = new TaskRepository();
     }
 
-    create (item: ITaskModel, callback: (error: any, result: any) => void) {
+    create (item: TaskModel, callback: (error: any, result: any) => void) {
         this._taskRepository.create(item, callback);
     }
 
@@ -22,14 +22,15 @@ class TaskBusiness  implements ITaskBusiness {
         this._taskRepository.retrieve(field, callback);
     }
 
-    update (_id: string, item: ITaskModel, callback: (error: any, result: any) => void) {
+    update (_id: string, item: TaskModel, callback: (error: any, result: any) => void) {
 
         this._taskRepository.findById(_id, (err, res) => {
-            if(err) callback(err, res);
-
-            else
+            if(err) {
+                callback(err, res);
+            }
+            else{
                 this._taskRepository.update(res._id, item, callback);
-
+            }
         });
     }
 
@@ -37,12 +38,12 @@ class TaskBusiness  implements ITaskBusiness {
         this._taskRepository.delete(_id , callback);
     }
 
-    findById (_id: string, callback: (error: any, result: ITaskModel) => void) {
+    findById (_id: string, callback: (error: any, result: TaskModel) => void) {
         this._taskRepository.findById(_id, callback);
     }
 
     findAndPopulate(searchField, populateField, callback:(err: any, result: any)=>void){
-
+            this._taskRepository.findAndPopulate(searchField, populateField,callback);
     }
 
     findOneAndUpdate(query, newData, options, callback:(error: any, result: any) => void){

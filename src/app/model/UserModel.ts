@@ -5,10 +5,21 @@ import IUserModel = require("./interfaces/UserModel");
 
 class UserModel {
 
-    private _userModel: IUserModel;
+    public firstName : string;
+    public lastName: string;
+    public password : string;
+    public createdAt: Date;
+    public role: string;
 
-    constructor(userModel: IUserModel) {
-        this._userModel = userModel;
+    constructor() {
+    }
+
+    constructor(firstName, lastName, password, createdAt, role){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.createdAt = createdAt;
+        this.role = role;
     }
 
 }

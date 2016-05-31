@@ -4,9 +4,9 @@
 import mongoose = require("mongoose");
 
 interface ContractModel extends mongoose.Document {
-    productId: {type:mongoose.Schema.Types.ObjectId, ref:'Product'};
+    /*productId: {type:mongoose.Schema.Types.ObjectId, ref:'Product'};
     unitRate: number;
-    item: string;
+    item: string;*/
 }
 
 export = ContractModel;

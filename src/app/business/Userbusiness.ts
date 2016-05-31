@@ -22,7 +22,7 @@ class Userbusiness  implements IUserBusiness {
         this._orderRepository = new OrderRepository();
     }
 
-    create (item: IUserModel, callback: (error: any, result: any) => IUserModel) {
+    create (item: UserModel, callback: (error: any, result: any) => UserModel) {
         this._userRepository.create(item, callback);
     }
 
@@ -30,14 +30,15 @@ class Userbusiness  implements IUserBusiness {
         this._userRepository.retrieve(field, callback);
     }
 
-    update (_id: string, item: IUserModel, callback: (error: any, result: any) => void) {
+    update (_id: string, item: UserModel, callback: (error: any, result: any) => void) {
 
         this._userRepository.findById(_id, (err, res) => {
-            if(err) callback(err, res);
-
-            else
+            if(err){
+                callback(err, res);
+            }
+            else{
                 this._userRepository.update(res._id, item, callback);
-
+            }
         });
     }
 
@@ -45,7 +46,7 @@ class Userbusiness  implements IUserBusiness {
         this._userRepository.delete(_id , callback);
     }
 
-    findById (_id: string, callback: (error: any, result: IUserModel) => void) {
+    findById (_id: string, callback: (error: any, result: UserModel) => void) {
         this._userRepository.findById(_id, callback);
     }
 
@@ -67,15 +68,11 @@ class Userbusiness  implements IUserBusiness {
         console.log("got hit for =>"+_id)
             var params = {defaultTask:{assignedTo: _id}}
         this._orderRepository.findAndPopulate({$match:{assignedTo:_id}},
-            {path:'defaultTask ', populate:{path:'items'}, populate:{path:'assignedTo' }}, function(err, result){
-                console.log("error =>"+err);
-                /*console.log("result=>"+result);*/
-                callback(err, result);
-            } )
+            {path:'defaultTask ', populate:{path:'items'}, populate:{path:'assignedTo' }}, callback);
 
     }
 
-    mail(_id: string, callback: (error: any, result: IUserModel) => void){
+    mail(_id: string, callback: (error: any, result: UserModel) => void){
         var userRepository = this._userRepository;
         this._taskRepository.retrieve({assignedTo:_id}, callback);
     }

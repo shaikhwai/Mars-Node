@@ -6,7 +6,7 @@ import IEmailModel = require("./../model/interfaces/EmailModel");
 import EmailSchema = require("./../dataAccess/schemas/EmailSchema");
 import RepositoryBase = require("./base/RepositoryBase");
 
-class EmailRepository extends RepositoryBase<IEmailModel> {
+class EmailRepository extends RepositoryBase<EmailModel> {
     constructor () {
         super(EmailSchema);
     }

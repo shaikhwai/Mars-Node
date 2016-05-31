@@ -16,7 +16,7 @@ class AdminBusiness  implements IAdminbusiness {
         this._adminRepository = new AdminRepository();
     }
 
-    create (item: IAdminModel, callback: (error: any, result: any) => void) {
+    create (item: AdminModel, callback: (error: any, result: any) => void) {
         this._adminRepository.create(item, callback);
     }
 
@@ -24,13 +24,15 @@ class AdminBusiness  implements IAdminbusiness {
         this._adminRepository.retrieve(field, callback);
     }
 
-    update (_id: string, item: IAdminModel, callback: (error: any, result: any) => void) {
+    update (_id: string, item: AdminModel, callback: (error: any, result: any) => void) {
 
         this._adminRepository.findById(_id, (err, res) => {
-            if(err) callback(err, res);
-
-            else
+            if(err){
+                callback(err, res);
+            }
+            else{
                 this._adminRepository.update(res._id, item, callback);
+            }
 
         });
     }
@@ -39,7 +41,7 @@ class AdminBusiness  implements IAdminbusiness {
         this._adminRepository.delete(_id , callback);
     }
 
-    findById (_id: string, callback: (error: any, result: IAdminModel) => void) {
+    findById (_id: string, callback: (error: any, result: AdminModel) => void) {
         this._adminRepository.findById(_id, callback);
     }
 

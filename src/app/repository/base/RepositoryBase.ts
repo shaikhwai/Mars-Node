@@ -6,7 +6,7 @@ import IHeroModel = require("./../../model/interfaces/HeroModel");
 
 import mongoose = require("mongoose");
  
-class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T> {
+class RepositoryBase<T > implements IRead<T>, IWrite<T> {
     
     private _model: mongoose.Model<mongoose.Document>;
     

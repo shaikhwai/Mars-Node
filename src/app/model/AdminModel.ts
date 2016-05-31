@@ -5,10 +5,19 @@ import IAdminModel = require("./interfaces/AdminModel");
 
 class AdminModel {
 
-    private _adminModel: IAdminModel;
+    public userName : String;
+    public password : String;
+    public createdAt: Date;
+    public role: String;
 
-    constructor(adminModel: IAdminModel) {
-        this._adminModel = adminModel;
+    constructor() {
+
+    }
+    constructor(userName, password, createdAt, role){
+        this.userName = userName;
+        this.password = password;
+        this.createdAt = createdAt;
+        this.role = role;
     }
 
 }

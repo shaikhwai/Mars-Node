@@ -10,21 +10,8 @@ var schema = mongoose.Schema;
 
 interface OrderModel extends mongoose.Document {
 
-/*    orderDate: Date;
-    completionDate: Date;
-    fromCompany: string;
-    status: string;
-    orderType: string;
-    remarks: string;
-    contactPerson: string;
-    contactNumber: number;
-    totalAmount: number;
-    items: Array<IItem>;
-    shippingAddress: IAddress;
-    billingAddress: IAddress;
-    defaultTask: {type:mongoose.Schema.Types.ObjectId, ref:'Task'};*/
 
-    orderDate: Date;
+    /*orderDate: Date;
     completionDate: Date;
     status: string;
     orderType: string;
@@ -34,7 +21,7 @@ interface OrderModel extends mongoose.Document {
     defaultTask: {type:mongoose.Schema.Types.ObjectId, ref:'Task'};
     customer: {type:mongoose.Schema.Types.ObjectId, ref:'Customer'};
     shippingAddress: IAddress;
-    billingAddress: IAddress;
+    billingAddress: IAddress;*/
 
 }
 

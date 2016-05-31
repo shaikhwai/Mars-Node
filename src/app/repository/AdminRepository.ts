@@ -6,7 +6,7 @@ import IAdminModel = require("./../model/interfaces/AdminModel");
 import AdminSchema = require("./../dataAccess/schemas/AdminSchema");
 import RepositoryBase = require("./base/RepositoryBase");
 
-class AdminRepository extends RepositoryBase<IAdminModel> {
+class AdminRepository extends RepositoryBase<AdminModel> {
     constructor () {
         super(AdminSchema);
     }

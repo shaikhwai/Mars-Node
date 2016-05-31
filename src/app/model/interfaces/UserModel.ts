@@ -7,11 +7,11 @@
 import mongoose = require("mongoose");
 
 interface UserModel extends mongoose.Document {
-    firstName : String,
+    /*firstName : String,
     lastName: String,
     password : String,
     createdAt: Date,
-    role: String
+    role: String*/
 }
 
 export = UserModel;

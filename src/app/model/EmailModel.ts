@@ -5,10 +5,39 @@ import IEmailModel = require("./interfaces/EmailModel");
 
 class EmailModel {
 
-    private _emailModel: IEmailModel;
+    fromCompany: string;
+    html : string;
+    text : string;
+    subject : string;
+    from : Array<any>;
+    to : Array<any>;
+    date : Date;
+    receivedDate : Date;
+    attachments : Array<any>;
+    defaultTask : string;
+    messageId : string;
+    conversation: Array<any>;
+    by: string;
 
-    constructor(emailModel: IEmailModel) {
-        this._emailModel = emailModel;
+    constructor() {
+    }
+
+    constructor(fromCompany, html, text, subject, from, to, date, receivedDate, attachments, defaultTask, messageId,
+        conversation, by){
+
+        this.fromCompany = fromCompany;
+        this.html = html;
+        this.text = text;
+        this.subject = subject;
+        this.from = from;
+        this.to = to;
+        this.date = date;
+        this.receivedDate = receivedDate;
+        this.attachments = attachments;
+        this.defaultTask = defaultTask;
+        this.messageId = messageId;
+        this.conversation = conversation;
+        this.by = by;
     }
 
 }

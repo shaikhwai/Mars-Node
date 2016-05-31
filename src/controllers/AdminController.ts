@@ -5,6 +5,7 @@ import express = require("express");
 import AdminBusiness = require("./../app/business/AdminBusiness");
 import IBaseController = require("./interfaces/base/BaseController");
 import IAdminModel = require("./../app/model/interfaces/AdminModel");
+import AdminModel = require("./../app/model/AdminModel");
 import UserBusiness = require("./../app/business/Userbusiness");
 import IUserModel = require("./../app/model/interfaces/UserModel");
 
@@ -16,14 +17,18 @@ class AdminController implements IBaseController <AdminBusiness> {
     create(req: express.Request, res: express.Response): void {
         try {
             console.log(req.body);
-            var admin: IAdminModel = <IAdminModel>req.body;
+            var admin: AdminModel = <AdminModel>req.body;
             admin.createdAt = new Date();
             admin.role = "Admin"
             console.log(admin);
             var adminBusiness = new AdminBusiness();
             adminBusiness.create(admin, (error, result) => {
-                if(error) res.status(403).send({ message: error });
-                else res.send({"success": "success"});
+                if(error){
+                    res.status(403).send({ message: error });
+                }
+                else{
+                    res.send({"success": "success"});
+                }
             });
         }
         catch (e)  {
@@ -41,7 +46,9 @@ class AdminController implements IBaseController <AdminBusiness> {
             var auth :Auth = new Auth();
             console.log("params: "+JSON.stringify(req.query));
             adminBusiness.retrieve(params, (error, result) => {
-                if(error) res.status(403).send({ message: error });
+                if(error){
+                    res.status(403).send({ message: error });
+                }
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -57,13 +64,15 @@ class AdminController implements IBaseController <AdminBusiness> {
 
     update(req: express.Request, res: express.Response): void {
         try {
-            var admin: IAdminModel = <IAdminModel>req.body;
+            var admin: AdminModel = <AdminModel>req.body;
             var _id: string = req.params._id;
             var adminBusiness = new AdminBusiness();
             var user = req.user;
             var auth :Auth = new Auth();
             adminBusiness.update(_id, admin, (error, result) => {
-                if(error) res.status(403).send({ message: error });
+                if(error){
+                    res.status(403).send({ message: error });
+                }
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -85,7 +94,9 @@ class AdminController implements IBaseController <AdminBusiness> {
             var user = req.user;
             var auth :Auth = new Auth();
             adminBusiness.delete(_id, (error, result) => {
-                if(error) res.status(403).send({ message: error });
+                if(error){
+                    res.status(403).send({ message: error });
+                }
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -109,7 +120,9 @@ class AdminController implements IBaseController <AdminBusiness> {
             var auth :Auth = new Auth();
             var adminBusiness = new AdminBusiness();
             adminBusiness.findById(_id, (error, result) => {
-                if(error) res.status(403).send({ message: error });
+                if(error){
+                    res.status(403).send({ message: error });
+                }
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -131,12 +144,16 @@ class AdminController implements IBaseController <AdminBusiness> {
             var auth = new Auth();
             console.log("params: "+JSON.stringify(req.body));
             adminBusiness.retrieve(params, (error, result) => {
-                if(error) res.status(403).send({ message: error });
-
-                else{
+                if(error){
+                    res.status(403).send({ message: error });
+                }
+                else if(result.length > 0){
                     console.log(result);
                     var token = auth.issueTokenWithUid(result[0]);
                     res.send({"result":result[0],access_token: token});
+                }
+                else{
+                    res.status(204).send("Invalid UserName or Password.");
                 }
             });
         }
@@ -156,7 +173,9 @@ class AdminController implements IBaseController <AdminBusiness> {
             var auth :Auth = new Auth();
             var userBusiness = new UserBusiness();
             userBusiness.create(user, (error, result) => {
-                if(error) res.status(403).send({ message: error });
+                if(error){
+                    res.status(403).send({ message: error });
+                }
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});

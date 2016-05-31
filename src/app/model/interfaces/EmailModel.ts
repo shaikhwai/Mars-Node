@@ -5,7 +5,7 @@ import mongoose = require("mongoose");
 import ITask = require("./Task");
 interface EmailModel extends mongoose.Document {
 
-    fromCompany: string;
+    /*fromCompany: string;
     html : string;
     text : string;
     subject : string;
@@ -16,7 +16,7 @@ interface EmailModel extends mongoose.Document {
     attachments : Array<any>;
     defaultTask : {type:mongoose.Schema.Types.ObjectId, ref:'Task'};
     messageId : string;
-    conversation: Array<any>;
+    conversation: Array<any>;*/
 
 
 }

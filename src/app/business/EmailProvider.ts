@@ -69,8 +69,8 @@ class EmailProvider  implements IEmailProvider {
                                 });
                                 parser.on("end", function(msg) {
                                     console.log(JSON.stringify(msg));
-                                    var email = new EmailModel();
-                                    email.html = msg.html;
+
+                                   /* email.html = msg.html;
                                     email.text = msg.text;
                                     email.subject =  msg.subject;
                                     email.from = msg.from;
@@ -78,14 +78,16 @@ class EmailProvider  implements IEmailProvider {
                                     email.date = msg.date;
                                     email.recivedDate = msg.recivedDate;
                                     email.attachments = attchments;
-                                    email.messageId = msg.messageId;
+                                    email.messageId = msg.messageId;*/
 
-                                    var my_email=email.from[0].address;
+                                    var my_email=msg.from[0].address;
                                     var ind=my_email.indexOf("@");
                                     var my_slice=my_email.slice((ind+1),my_email.length);
                                     my_slice = my_slice.split(".");
-                                    email.fromCompany = my_slice[0];
-
+                                    /*email.fromCompany = my_slice[0];*/
+                                    var email = new EmailModel(my_slice[0], msg.html, msg.text, msg.subject,
+                                        msg.from, msg.to, msg.date, msg.receivedDate, msg.attachments, "", msg.messageId,
+                                        [],"Client");
                                     var userBusiness:UserBusiness = new UserBusiness();
                                     var query = {
                                         firstName:"Swapnil",
@@ -115,12 +117,13 @@ class EmailProvider  implements IEmailProvider {
                                         userBusiness.findOneAndUpdate(query, newData, {'new': true,upsert:true}, function(err, user){
                                             if(user){
                                                 console.log("User =>"+user);
-                                                var defaultTask : ITask = new Task();
-                                                defaultTask.assignedOn = new Date();
+                                                var defaultTask : Task = new Task(new Date(), user._id, new Date(),
+                                                    "high","open");
+                                               /* defaultTask.assignedOn = new Date();
                                                 defaultTask.assignedTo = user._id;
                                                 defaultTask.status = "open";
                                                 defaultTask.priority = "high";
-                                                defaultTask.completeBy = new Date();
+                                                defaultTask.completeBy = new Date();*/
                                                 var taskBusiness = new TaskBusiness();
 
                                                 taskBusiness.create(defaultTask, function(err, task){

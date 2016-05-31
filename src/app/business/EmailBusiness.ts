@@ -17,7 +17,7 @@ class EmailBusiness  implements IEmailBusiness {
         this._emailRepository = new EmailRepository();
     }
 
-    create (item: IEmailModel, callback: (error: any, result: any) => void) {
+    create (item: EmailModel, callback: (error: any, result: any) => void) {
         this._emailRepository.create(item, callback);
     }
 
@@ -25,14 +25,15 @@ class EmailBusiness  implements IEmailBusiness {
         this._emailRepository.retrieve(field, callback);
     }
 
-    update (_id: string, item: IEmailModel, callback: (error: any, result: any) => void) {
+    update (_id: string, item: EmailModel, callback: (error: any, result: any) => void) {
 
         this._emailRepository.findById(_id, (err, res) => {
-            if(err) callback(err, res);
-
-            else
+            if(err){
+                callback(err, res);
+            }
+            else{
                 this._emailRepository.update(res._id, item, callback);
-
+            }
         });
     }
 
@@ -40,15 +41,12 @@ class EmailBusiness  implements IEmailBusiness {
         this._emailRepository.delete(_id , callback);
     }
 
-    findById (_id: string, callback: (error: any, result: IEmailModel) => void) {
+    findById (_id: string, callback: (error: any, result: EmailModel) => void) {
         this._emailRepository.findById(_id, callback);
     }
 
     findAndPopulate(searchField, populateField, callback:(err: any, result: any)=>void){
-        this._emailRepository.findAndPopulate(searchField, populateField, function(err, items) {
-            /*console.log(items);*/
-            callback(err, items);
-        });
+        this._emailRepository.findAndPopulate(searchField, populateField, callback);
     }
 
     findOneAndUpdate(query, newData, options, callback:(error: any, result: any) => void){

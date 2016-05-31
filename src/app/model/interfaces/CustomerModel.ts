@@ -9,12 +9,12 @@ var schema = mongoose.Schema;
 
 interface CustomerModel extends mongoose.Document {
 
-    fromCompany: string;
+    /*fromCompany: string;
     contactPerson: string;
     contactNumber: number;
     shippingAddress: {type:mongoose.Schema.Types.ObjectId, ref:'IAddress'};
     billingAddress: {type:mongoose.Schema.Types.ObjectId, ref:'IAddress'};
-    contract: Array<IContract>;
+    contract: Array<IContract>;*/
 
 }
 

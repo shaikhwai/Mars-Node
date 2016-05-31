@@ -8,8 +8,8 @@
 import mongoose = require("mongoose");
 
 interface ItemModel extends mongoose.Document {
-    productId: {type:mongoose.Schema.Types.ObjectId, ref:'Product'};
-    qty: number;
+    /*productId: {type:mongoose.Schema.Types.ObjectId, ref:'Product'};
+    qty: number;*/
 }
 
 export = ItemModel;

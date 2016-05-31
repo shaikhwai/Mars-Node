@@ -27,33 +27,20 @@ class OrderBusiness  implements IOrderBusiness {
         this._taskRepository = new TaskRepository();
     }
 
-    create (item: IOrderModel, callback: (error: any, result: any) => void) {
-        /*console.log(item);*/
-       /* var task :ITaskModel={
-            assignedOn : item.defaultTask.assignedOn,
-            assignedTo : item.defaultTask.assignedTo,
-            completeBy : item.defaultTask.completeBy,
-            priority : item.defaultTask.priority,
-            status : item.defaultTask.status
-        };*/
+    create (item: OrderModel, callback: (error: any, result: any) => void) {
         console.log("default task"+ JSON.stringify(item.defaultTask));
-        var defaultTask : ITaskModel = new TaskModel();
-        defaultTask.assignedOn = item.defaultTask.assignedOn;
+        var defaultTask : TaskModel = <TaskModel>item.defaultTask;
+        /*defaultTask.assignedOn = item.defaultTask.assignedOn;
         defaultTask.assignedTo = item.defaultTask.assignedTo;
         defaultTask.completeBy = item.defaultTask.completeBy;
         defaultTask.priority = item.defaultTask.priority;
-        defaultTask.status = item.defaultTask.status;
-        console.log("default task"+ JSON.stringify(defaultTask));
-
-        console.log("order"+JSON.stringify(this._orderRepository));
-        console.log("task"+JSON.stringify(this._taskRepository));
-        console.log("repository"+ JSON.stringify(this._taskRepository));
-       // this._orderRepository.create(item, callback);
+        defaultTask.status = item.defaultTask.status;*/
+        console.log("new task =>"+JSON.stringify(defaultTask));
         var orderRepository = this._orderRepository;
 
         this._taskRepository.create(defaultTask, function(err, status){
             if(err){
-
+                callback(err, status);
             }
             else{
                 item.defaultTask = status._id;
@@ -66,7 +53,7 @@ class OrderBusiness  implements IOrderBusiness {
         this._orderRepository.retrieve(field, callback);
     }
 
-    update (_id: string, item: IOrderModel, callback: (error: any, result: any) => void) {
+    update (_id: string, item: OrderModel, callback: (error: any, result: any) => void) {
 
         var orderRepository = this._orderRepository;
         var taskRepository = this._taskRepository;
@@ -75,16 +62,15 @@ class OrderBusiness  implements IOrderBusiness {
                 callback(err, res);
             }
             else{
-                /*this._orderRepository.update(res._id, item, callback);*/
-                var defaultTask : ITask = new TaskModel();
-                defaultTask.assignedOn = new Date(item.defaultTask.assignedOn);
+                var defaultTask : TaskModel = <TaskModel>item.defaultTask;
+                /*defaultTask.assignedOn = new Date(item.defaultTask.assignedOn);
                 defaultTask.assignedTo = item.defaultTask.assignedTo;
                 defaultTask.completeBy = new Date(item.defaultTask.completeBy);
                 defaultTask.priority = item.defaultTask.priority;
-                defaultTask.status = item.defaultTask.status;
+                defaultTask.status = item.defaultTask.status;*/
                 taskRepository.update(item.defaultTask._id, defaultTask, function(err, status){
                    if(err){
-
+                       callback(err, res);
                    }
                     else{
                        item.defaultTask = status._id;
@@ -99,7 +85,7 @@ class OrderBusiness  implements IOrderBusiness {
         this._orderRepository.delete(_id , callback);
     }
 
-    findById (_id: string, callback: (error: any, result: IOrderModel) => void) {
+    findById (_id: string, callback: (error: any, result: OrderModel) => void) {
         this._orderRepository.findById(_id, callback);
     }
 

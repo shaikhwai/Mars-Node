@@ -4,12 +4,12 @@
 import mongoose = require("mongoose");
 
 interface ProductModel extends mongoose.Document {
-    name: string;
+    /*name: string;
     detail: string;
     type:string;
     variant: string;
     unitRate: number;
-    available: boolean;
+    available: boolean;*/
 }
 
 export = ProductModel;

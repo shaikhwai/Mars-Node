@@ -11,6 +11,7 @@ import EmailProvider = require("./../app/business/EmailProvider");
 import IBaseController = require("./interfaces/base/BaseController");
 import ICustomerModel = require("./../app/model/interfaces/CustomerModel");
 import IContractModel = require("./../app/model/interfaces/ContractModel");
+import CustomerModel = require("./../app/model/CustomerModel");
 import ContractModel = require("./../app/model/ContractModel");
 import Auth = require("./../interceptor/Auth/AuthInterceptor");
 import Imap = require('imap');
@@ -27,12 +28,12 @@ class CustomerController implements IBaseController <CustomerBusiness> {
         console.log("create customer has been hit");
         try {
             console.log(req.body);
-            var customer: ICustomerModel = <ICustomerModel>req.body;
+            var customer: CustomerModel = <CustomerModel>req.body;
             var user = req.user;
             var auth :Auth = new Auth();
             var customerBusiness = new CustomerBusiness();
-            customer.contract = new Array<ContractModel>();
-            var first :IContractModel = new ContractModel();
+            /*customer.contract = new Array<ContractModel>();*/
+            /*var first :IContractModel = new ContractModel();
             first.productId = "5739b4bd8de25a2113012ec9";
             first.item = "test";
             first.unitRate =4;
@@ -42,12 +43,13 @@ class CustomerController implements IBaseController <CustomerBusiness> {
             second.unitRate =4;
 
             customer.contract.push(first);
-            customer.contract.push(second);
+            customer.contract.push(second);*/
             customerBusiness.create(customer, (error, result) => {
-                if(error) res.status(403).send({ message: error });
+                if(error){ console.log("found error!!!");
+                    res.status(403).send({ message: error });}
                 else{
                     var token = auth.issueTokenWithUid(user);
-                    console.log(result._id);
+                    console.log("returing responce.");
                     res.send({"result":result,access_token: token});
                 }
             });
@@ -78,6 +80,7 @@ class CustomerController implements IBaseController <CustomerBusiness> {
             customerBusiness.findAndPopulate(params, {path:'shippingAddress billingAddress contract.productId'}, (error, result) => {
                 if(error) res.send({"error": "error"});
                 else{
+                    console.log("Customer =====> "+JSON.stringify(result));
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
                 }
@@ -92,7 +95,7 @@ class CustomerController implements IBaseController <CustomerBusiness> {
 
     update(req: express.Request, res: express.Response): void {
         try {
-            var customer: ICustomerModel = <ICustomerModel>req.body;
+            var customer: CustomerModel = <CustomerModel>req.body;
             var _id: string = req.params._id;
             var user = req.user;
             var auth :Auth = new Auth();

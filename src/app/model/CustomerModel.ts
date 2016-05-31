@@ -1,12 +1,27 @@
 
 import ICustomerModel = require("./interfaces/CustomerModel");
+import mongoose = require("mongoose");
+import Contract = require("./ContractModel");
 
 class CustomerModel {
 
-    private _customerModel: ICustomerModel;
+    fromCompany: string;
+    contactPerson: string;
+    contactNumber: number;
+    shippingAddress: {type:mongoose.Schema.Types.ObjectId, ref:'IAddress'};
+    billingAddress: {type:mongoose.Schema.Types.ObjectId, ref:'IAddress'};
+    contract: Array<Contract>;
 
-    constructor(customerModel: ICustomerModel) {
-        this._customerModel = customerModel;
+    constructor() {
+    }
+
+    constructor(fromCompany, contactPerson, contactNumber, shippingAddress, billingAddress, contract){
+        this.fromCompany = fromCompany;
+        this.contactPerson = contactPerson;
+        this.contactNumber = contactNumber;
+        this.shippingAddress = shippingAddress;
+        this.billingAddress = billingAddress;
+        this.contract = contract;
     }
 
 }

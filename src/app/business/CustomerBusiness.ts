@@ -24,45 +24,40 @@ class CustomerBusiness  implements ICustomerBusiness {
         this._customerRepository = new CustomerRepository();
         this._addressRepository = new AddressRepository();
     }
-    create (item: ICustomerModel, callback: (error: any, result: any) => void) {
-        console.log("initial item:" + JSON.stringify(item));
+    create (item: CustomerModel, callback: (error: any, result: any) => void) {
+        /*console.log("initial item:" + JSON.stringify(item));*/
 
-        var billingAddress: IAddress =  new AddressModel();
-        var shippingAddress: IAddress =  new AddressModel();
+        /*var billingAddress: IAddress =  new AddressModel(item.billingAddress.line1, item.billingAddress.line2,
+            item.billingAddress.city, item.billingAddress.pinCode, item.billingAddress.state,
+            item.billingAddress.country);
+        var shippingAddress: IAddress =  new AddressModel(item.shippingAddress.line1, item.shippingAddress.line2,
+            item.shippingAddress.city, item.shippingAddress.pinCode, item.shippingAddress.state,
+            item.shippingAddress.country);*/
+        var billingAddress: AddressModel =  <AddressModel>item.billingAddress;
 
-        billingAddress.line1 = item.billingAddress.line1;
-        billingAddress.line2 = item.billingAddress.line2;
-        billingAddress.city = item.billingAddress.city;
-        billingAddress.pinCode = item.billingAddress.pinCode;
-        billingAddress.state = item.billingAddress.state;
-        billingAddress.country = item.billingAddress.country;
+        var shippingAddress: AddressModel =  <AddressModel>item.shippingAddress;
 
-        shippingAddress.line1 = item.shippingAddress.line1;
-        shippingAddress.line2 = item.shippingAddress.line2;
-        shippingAddress.city = item.shippingAddress.city;
-        shippingAddress.pinCode = item.shippingAddress.pinCode;
-        shippingAddress.state = item.shippingAddress.state;
-        shippingAddress.country = item.shippingAddress.country;
 
         var customerRepository = this._customerRepository;
         this._addressRepository.create(billingAddress, function(err, status){
             if(err){
-
+                console.log("error in billingAddress:" + JSON.stringify(err));
+                callback(err, status);
             }
             else{
                 item.billingAddress = status._id;
-                console.log(item);
-                /*customerRepository.create(item, callback);*/
+                /*console.log(item);*/
             }
         });
 
         this._addressRepository.create(shippingAddress, function(err, status){
             if(err){
-
+                console.log("error in shippingAddress:" + JSON.stringify(err));
+                callback(err, status);
             }
             else{
                 item.shippingAddress = status._id;
-                console.log(item);
+                /*console.log(item);*/
                 customerRepository.create(item, callback);
             }
         });
@@ -72,7 +67,7 @@ class CustomerBusiness  implements ICustomerBusiness {
         this._customerRepository.retrieve(field, callback);
     }
 
-    update (_id: string, item: ICustomerModel, callback: (error: any, result: any) => void) {
+    update (_id: string, item: CustomerModel, callback: (error: any, result: any) => void) {
 
         var customerRepository = this._customerRepository;
         var addressRepository = this._addressRepository;
@@ -98,8 +93,8 @@ class CustomerBusiness  implements ICustomerBusiness {
                  }
                  });*/
 
-                var billingAddress: IAddress = new IAddress();
-                var shippingAddress : IAddress= new IAddress();
+               /* var billingAddress: IAddress = new IAddress();
+                var shippingAddress : IAddress= new IAddress();*/
             }
         });
     }
@@ -108,7 +103,7 @@ class CustomerBusiness  implements ICustomerBusiness {
         this._customerRepository.delete(_id , callback);
     }
 
-    findById (_id: string, callback: (error: any, result: ICustomerModel) => void) {
+    findById (_id: string, callback: (error: any, result: CustomerModel) => void) {
         this._customerRepository.findById(_id, callback);
     }
 

@@ -6,7 +6,7 @@ import IOrderModel = require("./../model/interfaces/OrderModel");
 import OrderSchema = require("./../dataAccess/schemas/OrderSchema");
 import RepositoryBase = require("./base/RepositoryBase");
 
-class OrderRepository  extends RepositoryBase<IOrderModel> {
+class OrderRepository  extends RepositoryBase<OrderModel> {
     constructor () {
         super(OrderSchema);
     }

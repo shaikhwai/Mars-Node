@@ -8,12 +8,12 @@
 import mongoose = require("mongoose");
 
 interface IAddress extends mongoose.Document {
-    line1: string;
+    /*line1: string;
     line2: string;
     pinCode: number;
     city: string;
     country: string;
-    state: string;
+    state: string;*/
 }
 
 export = IAddress;

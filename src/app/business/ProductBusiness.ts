@@ -14,7 +14,7 @@ class ProductBusiness  implements IProductBusiness {
         this._productRepository = new ProductRepository();
     }
 
-    create (item: IProductModel, callback: (error: any, result: any) => void) {
+    create (item: ProductModel, callback: (error: any, result: any) => void) {
         this._productRepository.create(item, callback);
     }
 
@@ -22,14 +22,15 @@ class ProductBusiness  implements IProductBusiness {
         this._productRepository.retrieve(field, callback);
     }
 
-    update (_id: string, item: IProductModel, callback: (error: any, result: any) => void) {
+    update (_id: string, item: ProductModel, callback: (error: any, result: any) => void) {
 
         this._productRepository.findById(_id, (err, res) => {
-            if(err) callback(err, res);
-
-            else
+            if(err){
+                callback(err, res);
+            }
+            else{
                 this._productRepository.update(res._id, item, callback);
-
+            }
         });
     }
 
@@ -37,7 +38,7 @@ class ProductBusiness  implements IProductBusiness {
         this._productRepository.delete(_id , callback);
     }
 
-    findById (_id: string, callback: (error: any, result: IProductModel) => void) {
+    findById (_id: string, callback: (error: any, result: ProductModel) => void) {
         this._productRepository.findById(_id, callback);
     }
 
