@@ -10,6 +10,8 @@ gulp.task("watch", function () {
 });
 
 gulp.task("compile", function () {
+    gulp.src('src/config/*')
+        .pipe(gulp.dest('lib/config/'));
   return gulp
     .src("src/**/*.ts") 
     .pipe(tsc({

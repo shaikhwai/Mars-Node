@@ -1,6 +1,6 @@
 import express = require("express");
-import OrderController = require("./../../controllers/OrderController");
-import Auth = require("./../../interceptor/Auth/AuthInterceptor");
+import OrderController = require("./../controllers/OrderController");
+import Auth = require("./../interceptor/Auth/AuthInterceptor");
 
 var router = express.Router();
 class OrderRoutes {

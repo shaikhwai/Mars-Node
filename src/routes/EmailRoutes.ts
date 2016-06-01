@@ -2,8 +2,8 @@
  * Created by waqar on 18/4/16.
  */
 import express = require("express");
-import EmailController = require("./../../controllers/EmailController");
-import Auth = require("./../../interceptor/Auth/AuthInterceptor");
+import EmailController = require("./../controllers/EmailController");
+import Auth = require("./../interceptor/Auth/AuthInterceptor");
 
 var router = express.Router();
 class EmailRoutes {

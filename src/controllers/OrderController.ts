@@ -25,6 +25,7 @@ class OrderController implements IBaseController <OrderBusiness> {
             var orderBusiness = new OrderBusiness();
             orderBusiness.create(order, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -56,6 +57,7 @@ class OrderController implements IBaseController <OrderBusiness> {
             console.log("params: "+JSON.stringify(req.query));
             orderBusiness.findAndPopulate(params,{path:'items.productId defaultTask customer', populate:{path:'billingAddress shippingAddress assignedTo'}}, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -81,6 +83,7 @@ class OrderController implements IBaseController <OrderBusiness> {
             var orderBusiness = new OrderBusiness();
             orderBusiness.update(_id, order, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -105,6 +108,7 @@ class OrderController implements IBaseController <OrderBusiness> {
             var orderBusiness = new OrderBusiness();
             orderBusiness.delete(_id, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -131,6 +135,7 @@ class OrderController implements IBaseController <OrderBusiness> {
             var orderBusiness = new OrderBusiness();
             orderBusiness.findById(_id, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{

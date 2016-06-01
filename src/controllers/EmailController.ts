@@ -29,6 +29,7 @@ class EmailController implements IBaseController <EmailBusiness> {
             var emailBusiness = new EmailBusiness();
             emailBusiness.create(email, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -50,6 +51,7 @@ class EmailController implements IBaseController <EmailBusiness> {
             var auth :Auth = new Auth();
             emailProvider.openInbox(function(err, data){
                 if(err){
+                    console.log("Error "+JSON.stringify((err)));
                     res.status(403).send({ message: err });
                 }
                 else{
@@ -59,7 +61,10 @@ class EmailController implements IBaseController <EmailBusiness> {
                     /*{path:'defaultTask assignedTo',populate:{path:'assignedTo'}}*/
                     emailBusiness.findAndPopulate(params,{path:'defaultTask assignedTo',populate:{path:'assignedTo'}}
                         ,function(error, result){
-                        if(error) res.status(403).send({ message: error });
+                        if(error){
+                            console.log("Error "+JSON.stringify((error)));
+                            res.status(403).send({ message: error });
+                        }
                         else{
                             var token = auth.issueTokenWithUid(user);
                             res.send({"result":result,access_token: token});
@@ -84,6 +89,7 @@ class EmailController implements IBaseController <EmailBusiness> {
             var emailBusiness = new EmailBusiness();
             emailBusiness.update(_id, email, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -108,6 +114,7 @@ class EmailController implements IBaseController <EmailBusiness> {
             var auth :Auth = new Auth();
             emailBusiness.delete(_id, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -132,6 +139,7 @@ class EmailController implements IBaseController <EmailBusiness> {
             var auth :Auth = new Auth();
             emailBusiness.findById(_id, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -175,7 +183,10 @@ class EmailController implements IBaseController <EmailBusiness> {
                     var emailBusiness = new EmailBusiness();
                     var params = req.query;
                     emailBusiness.retrieve(params, (error, result) => {
-                        if(error) res.status(403).send({ message: error });
+                        if(error){
+                            console.log("Error "+JSON.stringify((error)));
+                            res.status(403).send({ message: error });
+                        }
                         else{
                             var token = auth.issueTokenWithUid(user);
                             res.send({"result":result,access_token: token});

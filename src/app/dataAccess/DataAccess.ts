@@ -1,11 +1,12 @@
     /// <reference path="../../../typings/tsd.d.ts" />
 
     import Mongoose = require("mongoose");
-    import Constants = require("./../../config/constants/Constants");
+    import config = require("config");
     
     class DataAccess {
         static mongooseInstance: any;
         static mongooseConnection: Mongoose.Connection;
+
         
         constructor () {
             DataAccess.connect();
@@ -18,8 +19,12 @@
             this.mongooseConnection.once("open", () => {
                 console.log("Connected to mongodb.");
             });
-            
-           this.mongooseInstance = Mongoose.connect(Constants.DB_CONNECTION_STRING);
+            var host = config.get("database.host");
+            var port = config.get("database.port");
+            var dbName = config.get("database.name");
+            console.log("Using Database: Host: %s | Port: %s | Name: %s", host, port, dbName);
+            /*connection = mongoose.connect('mongodb://' + host + ':' + port + '/' + dbName);*/
+           this.mongooseInstance = Mongoose.connect('mongodb://' + host + ':' + port + '/' + dbName);
            return this.mongooseInstance;
         }
         

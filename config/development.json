@@ -1,0 +1,17 @@
+/**
+ * Configuration: Development
+ * @author Mindstix Labs
+ */
+{
+	/* Web Server */
+	"server": {
+		"port": 5000
+	},
+	/* Database */
+	"database": {
+		"host": "localhost",
+		"port": 27017,
+		"name": "warriors"
+	}
+	
+}

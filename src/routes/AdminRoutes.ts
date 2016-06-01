@@ -2,9 +2,9 @@
  * Created by waqar on 3/5/16.
  */
 import express = require("express");
-import AdminController = require("./../../controllers/AdminController");
-import AdminInterceptor = require("./../../interceptor/AdminInterceptor");
-import Auth = require("./../../interceptor/Auth/AuthInterceptor");
+import AdminController = require("./../controllers/AdminController");
+import AdminInterceptor = require("./../interceptor/AdminInterceptor");
+import Auth = require("./../interceptor/Auth/AuthInterceptor");
 
 var router = express.Router();
 class AdminRoutes {

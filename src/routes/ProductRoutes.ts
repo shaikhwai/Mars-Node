@@ -1,22 +1,21 @@
 /**
- * Created by chetan on 17/5/16.
+ * Created by waqar on 16/5/16.
  */
 import express = require("express");
-import OrderController = require("./../../controllers/OrderController");
-import CustomerController = require("./../../controllers/CustomerController");
-import Auth = require("./../../interceptor/Auth/AuthInterceptor");
+import ProductController = require("./../controllers/ProductController");
+import Auth = require("./../interceptor/Auth/AuthInterceptor");
 
 var router = express.Router();
-class CustomerRoutes {
-    private _customerController: CustomerController;
+class ProductRoutes {
+    private _productController: ProductController;
     private _auth: Auth;
 
     constructor () {
-        this._customerController = new CustomerController();
+        this._productController = new ProductController();
         this._auth = new Auth();
     }
     get routes () {
-        var controller = this._customerController;
+        var controller = this._productController;
         var auth = this._auth;
         router.get("/", auth.requiresAuth, controller.retrieve);
         router.post("", auth.requiresAuth, controller.create);
@@ -25,7 +24,8 @@ class CustomerRoutes {
         return router;
     }
 
+
 }
 
-Object.seal(CustomerRoutes);
-export = CustomerRoutes;
+Object.seal(ProductRoutes);
+export = ProductRoutes;

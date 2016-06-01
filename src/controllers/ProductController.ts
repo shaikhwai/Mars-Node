@@ -22,6 +22,7 @@ class ProductController implements IBaseController <ProductBusiness> {
             var productBusiness = new ProductBusiness();
             productBusiness.create(product, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -48,6 +49,7 @@ class ProductController implements IBaseController <ProductBusiness> {
             console.log("params: "+JSON.stringify(req.query));
             productBusiness.retrieve(params, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -72,6 +74,7 @@ class ProductController implements IBaseController <ProductBusiness> {
             var productBusiness = new ProductBusiness();
             productBusiness.update(_id, product, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -96,6 +99,7 @@ class ProductController implements IBaseController <ProductBusiness> {
             var productBusiness = new ProductBusiness();
             productBusiness.delete(_id, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -122,6 +126,7 @@ class ProductController implements IBaseController <ProductBusiness> {
             var productBusiness = new ProductBusiness();
             productBusiness.findById(_id, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{

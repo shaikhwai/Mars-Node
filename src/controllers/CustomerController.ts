@@ -45,7 +45,8 @@ class CustomerController implements IBaseController <CustomerBusiness> {
             customer.contract.push(first);
             customer.contract.push(second);*/
             customerBusiness.create(customer, (error, result) => {
-                if(error){ console.log("found error!!!");
+                if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });}
                 else{
                     var token = auth.issueTokenWithUid(user);
@@ -78,7 +79,10 @@ class CustomerController implements IBaseController <CustomerBusiness> {
                 }
             });*/
             customerBusiness.findAndPopulate(params, {path:'shippingAddress billingAddress contract.productId'}, (error, result) => {
-                if(error) res.send({"error": "error"});
+                if(error){
+                    console.log("Error "+JSON.stringify((error)));
+                    res.send({"error": "error"});
+                }
                 else{
                     console.log("Customer =====> "+JSON.stringify(result));
                     var token = auth.issueTokenWithUid(user);
@@ -101,7 +105,10 @@ class CustomerController implements IBaseController <CustomerBusiness> {
             var auth :Auth = new Auth();
             var customerBusiness = new CustomerBusiness();
             customerBusiness.update(_id, customer, (error, result) => {
-                if(error) res.status(403).send({ message: error });
+                if(error){
+                    console.log("Error "+JSON.stringify((error)));
+                    res.status(403).send({ message: error });
+                }
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -123,7 +130,10 @@ class CustomerController implements IBaseController <CustomerBusiness> {
             var auth :Auth = new Auth();
             var customerBusiness = new CustomerBusiness();
             customerBusiness.delete(_id, (error, result) => {
-                if(error) res.status(403).send({ message: error });
+                if(error){
+                    console.log("Error "+JSON.stringify((error)));
+                    res.status(403).send({ message: error });
+                }
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});
@@ -147,7 +157,10 @@ class CustomerController implements IBaseController <CustomerBusiness> {
             var auth :Auth = new Auth();
             var customerBusiness = new CustomerBusiness();
             customerBusiness.findById(_id, (error, result) => {
-                if(error) res.status(403).send({ message: error });
+                if(error){
+                    console.log("Error "+JSON.stringify((error)));
+                    res.status(403).send({ message: error });
+                }
                 else{
                     var token = auth.issueTokenWithUid(user);
                     res.send({"result":result,access_token: token});

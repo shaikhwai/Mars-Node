@@ -26,6 +26,7 @@ class AdminController implements IBaseController <AdminBusiness> {
             var adminBusiness = new AdminBusiness();
             adminBusiness.create(admin, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -49,6 +50,7 @@ class AdminController implements IBaseController <AdminBusiness> {
             console.log("params: "+JSON.stringify(req.query));
             adminBusiness.retrieve(params, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -73,6 +75,7 @@ class AdminController implements IBaseController <AdminBusiness> {
             var auth :Auth = new Auth();
             adminBusiness.update(_id, admin, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -97,6 +100,7 @@ class AdminController implements IBaseController <AdminBusiness> {
             var auth :Auth = new Auth();
             adminBusiness.delete(_id, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -123,6 +127,7 @@ class AdminController implements IBaseController <AdminBusiness> {
             var adminBusiness = new AdminBusiness();
             adminBusiness.findById(_id, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -147,6 +152,7 @@ class AdminController implements IBaseController <AdminBusiness> {
             console.log("params: "+JSON.stringify(req.body));
             adminBusiness.retrieve(params, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else if(result.length > 0){
@@ -176,6 +182,7 @@ class AdminController implements IBaseController <AdminBusiness> {
             var userBusiness = new UserBusiness();
             userBusiness.create(user, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{

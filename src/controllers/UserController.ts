@@ -23,6 +23,7 @@ class UserController implements IBaseController <UserBusiness> {
             var userBusiness = new UserBusiness();
             userBusiness.create(newUser, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -48,6 +49,7 @@ class UserController implements IBaseController <UserBusiness> {
             console.log("params: "+JSON.stringify(req.query));
             userBusiness.retrieve(params, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -72,6 +74,7 @@ class UserController implements IBaseController <UserBusiness> {
             var userBusiness = new UserBusiness();
             userBusiness.update(_id, newUserData, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -96,6 +99,7 @@ class UserController implements IBaseController <UserBusiness> {
             var userBusiness = new UserBusiness();
             userBusiness.delete(_id, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -122,6 +126,7 @@ class UserController implements IBaseController <UserBusiness> {
             var userBusiness = new UserBusiness();
             userBusiness.findById(_id, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -146,6 +151,7 @@ class UserController implements IBaseController <UserBusiness> {
             console.log("params: "+JSON.stringify(req.body));
             userBusiness.retrieve(params, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else if(result.length > 0){
@@ -174,6 +180,7 @@ class UserController implements IBaseController <UserBusiness> {
             var userBusiness = new UserBusiness();
             userBusiness.task(user.id, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
@@ -199,6 +206,7 @@ class UserController implements IBaseController <UserBusiness> {
             var userBusiness = new UserBusiness();
             userBusiness.order(user.id, (error, result) => {
                 if(error){
+                    console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
                 }
                 else{
