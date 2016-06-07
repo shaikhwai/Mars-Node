@@ -25,28 +25,50 @@ class CustomerBusiness  implements ICustomerBusiness {
         this._addressRepository = new AddressRepository();
     }
     create (item: CustomerModel, callback: (error: any, result: any) => void) {
-        /*console.log("initial item:" + JSON.stringify(item));*/
-
-        /*var billingAddress: IAddress =  new AddressModel(item.billingAddress.line1, item.billingAddress.line2,
-            item.billingAddress.city, item.billingAddress.pinCode, item.billingAddress.state,
-            item.billingAddress.country);
-        var shippingAddress: IAddress =  new AddressModel(item.shippingAddress.line1, item.shippingAddress.line2,
-            item.shippingAddress.city, item.shippingAddress.pinCode, item.shippingAddress.state,
-            item.shippingAddress.country);*/
-        var billingAddress: AddressModel =  <AddressModel>item.billingAddress;
-
-        var shippingAddress: AddressModel =  <AddressModel>item.shippingAddress;
-
+        var shippingAddress: Array<AddressModel> =  <Array<AddressModel>>item.shippingAddress;
+        var billingAddress: Array<AddressModel> = <Array<AddressModel>>item.billingAddress;
 
         var customerRepository = this._customerRepository;
-        this._addressRepository.create(billingAddress, function(err, status){
+        var addressRepository = this._addressRepository;
+        this._addressRepository.insertMany(billingAddress,function(err, result){
+           if(err){
+               console.log("err =>"+JSON.stringify(err));
+               callback(err, result);
+           }
+            else{
+               var billingAddressId :Array = new Array();
+               result.forEach((address)=>{
+                   billingAddressId.push(address._id);
+               });
+
+               addressRepository.insertMany(shippingAddress, function(err, result){
+                   if(err){
+                       console.log("err =>"+JSON.stringify(err));
+                       callback(err, result);
+                   }
+                   else{
+                       var shippingAddressId :Array = new Array();
+                       result.forEach((address)=>{
+                           shippingAddressId.push(address._id);
+                       });
+                        item.shippingAddress = shippingAddressId;
+                       item.billingAddress = billingAddressId;
+                       customerRepository.create(item, callback);
+                   }
+               });
+
+               /*console.log("done result =>"+JSON.stringify(billiingAddressId));
+               callback(err, result);*/
+           }
+        });
+        /*this._addressRepository.create(billingAddress, function(err, status){
             if(err){
                 console.log("error in billingAddress:" + JSON.stringify(err));
                 callback(err, status);
             }
             else{
                 item.billingAddress = status._id;
-                /*console.log(item);*/
+                /!*console.log(item);*!/
             }
         });
 
@@ -57,10 +79,10 @@ class CustomerBusiness  implements ICustomerBusiness {
             }
             else{
                 item.shippingAddress = status._id;
-                /*console.log(item);*/
+                /!*console.log(item);*!/
                 customerRepository.create(item, callback);
             }
-        });
+        });*/
     }
 
     retrieve (field, callback: (error: any, result: any) => void) {
@@ -68,35 +90,37 @@ class CustomerBusiness  implements ICustomerBusiness {
     }
 
     update (_id: string, item: CustomerModel, callback: (error: any, result: any) => void) {
-
+        var billingAddress: AddressModel =  <AddressModel>item.billingAddress;
+        var shippingAddress: AddressModel =  <AddressModel>item.shippingAddress;
         var customerRepository = this._customerRepository;
         var addressRepository = this._addressRepository;
-        this._customerRepository.findById(_id, (err, res) => {
-            if(err) {
-                callback(err, res);
+
+        delete billingAddress._id;
+        addressRepository.create(billingAddress, function(err, status){
+            if(err){
+                console.log("error in billingAddress:" + JSON.stringify(err));
+                callback(err, status);
             }
             else{
-                /*this._orderRepository.update(res._id, item, callback);*/
-                /*                 var defaultTask : ITask = new TaskModel();
-                 defaultTask.assignedOn = new Date(item.defaultTask.assignedOn);
-                 defaultTask.assignedTo = item.defaultTask.assignedTo;
-                 defaultTask.completeBy = new Date(item.defaultTask.completeBy);
-                 defaultTask.priority = item.defaultTask.priority;
-                 defaultTask.status = item.defaultTask.status;
-                 taskRepository.update(item.defaultTask._id, defaultTask, function(err, status){
-                 if(err){
+                item.billingAddress = status._id;
+                delete shippingAddress._id;
+                addressRepository.create(shippingAddress, function(err, status){
+                    if(err){
+                        console.log("error in billingAddress:" + JSON.stringify(err));
+                        callback(err, status);
+                    }
+                    else{
+                        item.shippingAddress = status._id;
+                        /*console.log(item);*/
+                        customerRepository.findOneAndUpdate({_id:_id},item,{},callback);
+                    }
+                });
 
-                 }
-                 else{
-                 item.defaultTask = status._id;
-                 customerRepository.update(_id, item, callback);
-                 }
-                 });*/
-
-               /* var billingAddress: IAddress = new IAddress();
-                var shippingAddress : IAddress= new IAddress();*/
             }
         });
+
+
+
     }
 
     delete (_id: string, callback:(error: any, result: any) => void) {

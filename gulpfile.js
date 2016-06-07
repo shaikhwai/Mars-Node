@@ -15,10 +15,13 @@ gulp.task("compile", function () {
   return gulp
     .src("src/**/*.ts") 
     .pipe(tsc({
-        module: "commonjs",
-        target: "ES5",
-        sourcemap: false,
-        logErrors: true
+        "module": "commonjs",
+        "target": "ES5",
+        "noImplicitAny": false,
+        "sourceMap": false,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "logErrors": true
     }))
     .pipe(gulp.dest("lib"));
 });

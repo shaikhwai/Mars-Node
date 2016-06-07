@@ -56,5 +56,11 @@
     "passport/passport.d.ts": {
       "commit": "6d0e826824da52204c1c93f92cecbc961ac84fa9"
     }
+  },
+  "dependencies": {
+    "moment": "registry:npm/moment#2.10.5+20160211003958"
+  },
+  "ambientDependencies": {
+    "require": "registry:dt/require#2.1.20+20160316155526"
   }
 }

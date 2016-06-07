@@ -38,7 +38,7 @@ class RepositoryBase<T > implements IRead<T>, IWrite<T> {
     }
     
     
-    private toObjectId (_id: string) : mongoose.Types.ObjectId {
+     toObjectId (_id: string) : mongoose.Types.ObjectId {
         return mongoose.Types.ObjectId.createFromHexString(_id)
     }
 
@@ -52,6 +52,10 @@ class RepositoryBase<T > implements IRead<T>, IWrite<T> {
         this._model.findOneAndUpdate(query, newData, options, function(err, result){
             callback(err, result);
         });
+    }
+
+    insertMany(query, callback){
+        this._model.insertMany(query, callback);
     }
     
 }

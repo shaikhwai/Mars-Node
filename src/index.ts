@@ -28,7 +28,7 @@
     app.set("port", port);
     app.use(Middlewares.configuration);
     
-    app.listen(port, () => {
-        console.log("Node app is running at localhost:" + port);
+    app.listen(port,config.get("Domain.host"), () => {
+        console.log("Node app is running at "+config.get("Domain.host")+":" + port);
        
     });

@@ -24,12 +24,12 @@ class CustomerSchema{
                 type: Number,
                 require: false
             },
-            shippingAddress: {
+            shippingAddress: [{
                 type:mongoose.Schema.Types.ObjectId, ref:'Address'
-            },
-            billingAddress: {
+            }],
+            billingAddress: [{
                 type:mongoose.Schema.Types.ObjectId, ref:'Address'
-            },
+            }],
             contract: {
                /* type:[ContractModel]*/
                 type: [{productId:{type:mongoose.Schema.Types.ObjectId, ref:'Product'},

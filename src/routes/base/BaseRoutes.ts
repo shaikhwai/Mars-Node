@@ -11,12 +11,12 @@ class BaseRoutes {
 
 
     get routes() {
-        app.use("/", new OrderRoutes().routes);
-        app.use("/", new EmailRoutes().routes);
-        app.use("/admin", new AdminRoutes().routes);
-        app.use("/user", new UserRoutes().routes);
-        app.use("/product", new ProductRoutes().routes);
-        app.use("/customer", new CustomerRoutes().routes);
+        app.use("/api/", new OrderRoutes().routes);
+        app.use("/api/", new EmailRoutes().routes);
+        app.use("/api/admin", new AdminRoutes().routes);
+        app.use("/api/user", new UserRoutes().routes);
+        app.use("/api/product", new ProductRoutes().routes);
+        app.use("/api/customer", new CustomerRoutes().routes);
         return app;
     }
 
