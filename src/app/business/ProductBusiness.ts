@@ -5,7 +5,8 @@ import ProductRepository = require("./../repository/ProductRepository");
 import IProductModel = require("./../model/interfaces/ProductModel");
 import ProductModel = require("./../model/ProductModel");
 import IProductBusiness = require("./interfaces/ProductBusiness");
-import log = require("./../../decrotor");
+/*import {log} from "../../decrotor";*/
+/*import log = require("./../../decrotor");*/
 /*import {log} from "util";*/
 
 

@@ -29,6 +29,9 @@ class ProductSchema{
             },
             available:{
                 type: Boolean
+            },
+            vat:{
+                type:Number
             }
         });
 

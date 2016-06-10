@@ -11,16 +11,18 @@ class ProductModel {
     public variant: string;
     public unitRate: number;
     public available: boolean;
+    public vat: number;
 
     constructor(){
     }
-    constructor(name, detail, type, variant, unitRate, available){
+    constructor(name, detail, type, variant, unitRate, available, vat){
         this.name = name;
         this.detail = detail;
         this.type = type;
         this.variant = variant;
         this.unitRate = unitRate;
         this.available = available;
+        this.vat = vat;
     }
 }
 Object.seal(ProductModel);
