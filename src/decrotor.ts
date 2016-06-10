@@ -15,6 +15,7 @@ function mylog(target: Object, propertyKey: string, descriptor: TypedPropertyDes
     };
     return descriptor;
 }
+*/
 
 export function log(target: Function, key: string, value: any) {
     return {
@@ -29,7 +30,6 @@ export function log(target: Function, key: string, value: any) {
     };
 }
 
-*/
 
 //import "reflect-metadata";
 
@@ -42,6 +42,7 @@ function required(target: Object, propertyKey: string | symbol, parameterIndex: 
   //  Reflect.defineMetadata(requiredMetadataKey, existingRequiredParameters, target, propertyKey);
 }
 */
+/*
 
 function validate(target: any, propertyName: string, descriptor: TypedPropertyDescriptor<Function>) {
     var method = descriptor.value;
@@ -57,4 +58,4 @@ function validate(target: any, propertyName: string, descriptor: TypedPropertyDe
 
         return method.apply(this, arguments);
     }
-}
+}*/

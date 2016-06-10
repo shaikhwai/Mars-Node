@@ -32,6 +32,9 @@ class ProductSchema{
             },
             vat:{
                 type:Number
+            },
+            unit:{
+                type:String
             }
         });
 

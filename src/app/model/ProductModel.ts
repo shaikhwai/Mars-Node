@@ -12,10 +12,11 @@ class ProductModel {
     public unitRate: number;
     public available: boolean;
     public vat: number;
+    public unit: string;
 
     constructor(){
     }
-    constructor(name, detail, type, variant, unitRate, available, vat){
+    constructor(name, detail, type, variant, unitRate, available, vat, unit){
         this.name = name;
         this.detail = detail;
         this.type = type;
@@ -23,6 +24,7 @@ class ProductModel {
         this.unitRate = unitRate;
         this.available = available;
         this.vat = vat;
+        this.unit = unit;
     }
 }
 Object.seal(ProductModel);
