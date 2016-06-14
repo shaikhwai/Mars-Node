@@ -22,7 +22,7 @@ class UserRoutes {
         var interceptor = this._interceptor;
         var auth = this._auth;
         router.get("/", auth.requiresAuth, interceptor.retrieve, controller.retrieve);
-        router.post("", auth.requiresAuth, controller.create);
+        router.post("", auth.requiresAuth, interceptor.create, controller.create);
         router.put("/:_id", auth.requiresAuth, interceptor.update,controller.update);
         router.delete("/:_id", auth.requiresAuth, interceptor.delete, controller.delete);
         router.post("/login",interceptor.login, controller.login);

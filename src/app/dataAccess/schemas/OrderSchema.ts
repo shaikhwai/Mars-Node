@@ -15,66 +15,6 @@ var mongooseConnection = DataAccess.mongooseConnection;
 
 class OrderSchema {
 
-    /*static get schema () {
-        var schema =  mongoose.Schema({
-
-            fromCompany : {
-                type: String,
-                required: false
-            },
-            orderDate:{
-                type: Date,
-                require: false
-            },
-            completionDate:{
-                type: Date,
-                require: false
-            },
-            status: {
-                type: String,
-                required: false
-            },
-            orderType: {
-                type: String,
-                required: false
-            },
-            remarks: {
-                type: String,
-                require: false
-            },
-            contactPerson: {
-                type: String,
-                require: false
-            },
-            venderName: {
-                type: String,
-                require: false
-            },
-            contactNumber: {
-                type: Number,
-                require: false
-            },
-            totalAmount: {
-                type: Number,
-                require: false
-            },
-            items: {
-                type: [],
-                require: true
-            },
-            shippingAddress: {
-                type: IAddress,
-                require: true
-            },
-            billingAddress:  {
-                type: IAddress,
-                require: true
-            },
-            defaultTask:  {type:mongoose.Schema.Types.ObjectId, ref:'Task'}
-        });
-
-        return schema;
-    }*/
 
     static get schema () {
         var schema =  mongoose.Schema({
@@ -108,14 +48,8 @@ class OrderSchema {
                 qty: Number}],
                 require: false
             },
-            billingAddress: {
-                type: IAddress,
-                require: true
-            },
-            shippingAddress: {
-                type: IAddress,
-                require: true
-            },
+            billingAddress: {type:mongoose.Schema.Types.ObjectId, ref:'Address'},
+            shippingAddress: {type:mongoose.Schema.Types.ObjectId, ref:'Address'},
             defaultTask:  {type:mongoose.Schema.Types.ObjectId, ref:'Task'},
             customer: {type:mongoose.Schema.Types.ObjectId, ref:'Customer'}
         });

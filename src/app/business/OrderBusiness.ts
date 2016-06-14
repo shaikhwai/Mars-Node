@@ -30,11 +30,6 @@ class OrderBusiness  implements IOrderBusiness {
     create (item: OrderModel, callback: (error: any, result: any) => void) {
         console.log("default task"+ JSON.stringify(item.defaultTask));
         var defaultTask : TaskModel = <TaskModel>item.defaultTask;
-        /*defaultTask.assignedOn = item.defaultTask.assignedOn;
-        defaultTask.assignedTo = item.defaultTask.assignedTo;
-        defaultTask.completeBy = item.defaultTask.completeBy;
-        defaultTask.priority = item.defaultTask.priority;
-        defaultTask.status = item.defaultTask.status;*/
         console.log("new task =>"+JSON.stringify(defaultTask));
         var orderRepository = this._orderRepository;
 
@@ -61,22 +56,23 @@ class OrderBusiness  implements IOrderBusiness {
             if(err) {
                 callback(err, res);
             }
-            else{
+            else if(res){
                 var defaultTask : TaskModel = <TaskModel>item.defaultTask;
-                /*defaultTask.assignedOn = new Date(item.defaultTask.assignedOn);
-                defaultTask.assignedTo = item.defaultTask.assignedTo;
-                defaultTask.completeBy = new Date(item.defaultTask.completeBy);
-                defaultTask.priority = item.defaultTask.priority;
-                defaultTask.status = item.defaultTask.status;*/
                 taskRepository.update(item.defaultTask._id, defaultTask, function(err, status){
                    if(err){
                        callback(err, res);
                    }
-                    else{
+                    else if(res){
                        item.defaultTask = status._id;
                        orderRepository.update(_id, item, callback);
                    }
+                    else{
+                       callback(err,"Record not found.");
+                   }
                 });
+            }
+            else{
+                callback(err, "Record not found.");
             }
         });
     }
@@ -95,9 +91,12 @@ class OrderBusiness  implements IOrderBusiness {
                 console.log("error "+JSON.stringify(err));
                 callback(err, null);
             }
-            else{
+            else if(result){
                 console.log("result "+JSON.stringify(result));
                 callback(null, result);
+            }
+            else{
+                callback(null, "Record not found.");
             }
         });
     }

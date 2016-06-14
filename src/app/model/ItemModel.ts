@@ -6,7 +6,7 @@ import mongoose = require("mongoose");
 
 class ItemModel {
 
-    public productId: {type:mongoose.Schema.Types.ObjectId, ref:'Product'};
+    public productId: string;
     public qty: number;
 
     constructor(){

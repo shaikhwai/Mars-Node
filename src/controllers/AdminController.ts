@@ -45,9 +45,10 @@ class AdminController implements IBaseController <AdminBusiness> {
         try {
             var adminBusiness = new AdminBusiness();
             var params = req.query;
+            delete params.access_token;
             var user = req.user;
             var auth :Auth = new Auth();
-            console.log("params: "+JSON.stringify(req.query));
+            console.log("params: "+JSON.stringify(params));
             adminBusiness.retrieve(params, (error, result) => {
                 if(error){
                     console.log("Error "+JSON.stringify((error)));
@@ -174,13 +175,13 @@ class AdminController implements IBaseController <AdminBusiness> {
 
     user(req: express.Request, res: express.Response): void{
         try {
-            console.log(req.body);
-            var user: UserModel = <UserModel>req.body;
-            user.createdAt = new Date();
+
+            var newUser: UserModel = <UserModel>req.body.user;
+            newUser.createdAt = new Date();
             var user = req.user;
             var auth :Auth = new Auth();
             var userBusiness = new UserBusiness();
-            userBusiness.create(user, (error, result) => {
+            userBusiness.create(newUser, (error, result) => {
                 if(error){
                     console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });

@@ -18,7 +18,6 @@ class OrderController implements IBaseController <OrderBusiness> {
 
     create(req: express.Request, res: express.Response): void {
         try {
-            console.log(req.body);
             var order: OrderModel = <OrderModel>req.body;
             var user = req.user;
             var auth :Auth = new Auth();
@@ -54,8 +53,8 @@ class OrderController implements IBaseController <OrderBusiness> {
                 console.log("params are" + params);
             }
 
-            console.log("params: "+JSON.stringify(req.query));
-            orderBusiness.findAndPopulate(params,{path:'items.productId defaultTask customer', populate:{path:'billingAddress shippingAddress assignedTo'}}, (error, result) => {
+            console.log("params: "+JSON.stringify(params));
+            orderBusiness.findAndPopulate(params,{path:'items.productId defaultTask customer  shippingAddress billingAddress', populate:{path:'billingAddress shippingAddress assignedTo'}}, (error, result) => {
                 if(error){
                     console.log("Error "+JSON.stringify((error)));
                     res.status(403).send({ message: error });
@@ -77,6 +76,7 @@ class OrderController implements IBaseController <OrderBusiness> {
     update(req: express.Request, res: express.Response): void {
         try {
             var order: OrderModel = <OrderModel>req.body;
+            console.log("body === "+ JSON.stringify(req.body));
             var _id: string = req.params._id;
             var user = req.user;
             var auth :Auth = new Auth();
@@ -147,7 +147,6 @@ class OrderController implements IBaseController <OrderBusiness> {
         catch (e)  {
             console.log(e);
             res.status(403).send({ message: e.message });
-
         }
     }
 

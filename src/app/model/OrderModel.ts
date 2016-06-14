@@ -6,6 +6,7 @@ import Item = require("./ItemModel");
 import Address = require("./AddressModel");
 import Task = require("./TaskModel");
 import mongoose = require("mongoose");
+/*import {mongoose}     from 'mongoose';*/
 
 class OrderModel {
 
@@ -16,10 +17,11 @@ class OrderModel {
     remarks: string;
     totalAmount: number;
     items: Array<Item>;
-    defaultTask: {type:mongoose.Schema.Types.ObjectId, ref:'Task'};
-    customer: {type:mongoose.Schema.Types.ObjectId, ref:'Customer'};
-    shippingAddress: Address;
-    billingAddress: Address;
+    defaultTask: string;
+    /*customer: {type:mongoose.Schema.Types.ObjectId, ref:'Customer'};*/
+    customer: string;
+    shippingAddress: string;
+    billingAddress: string;
 
     constructor(){
     }

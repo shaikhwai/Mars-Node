@@ -12,10 +12,19 @@ class UserInterceptor {
 
     login(req, res, next){
         if((req.body.firstName === undefined) || (req.body.password === undefined)) {
-            console.log("Interceptor:login varification failed.");
+            console.log("User Interceptor:login verification failed.");
             return res.status(400).send({ message: "Fields verification failed" });
         }
         console.log("Interceptor:login varification done ");
+        next();
+    }
+
+    create(req, res, next){
+        if((req.body.firstName === undefined) || (req.body.password === undefined) ||
+            (req.body.lastName === undefined)) {
+            console.log("User Interceptor:create verification failed.");
+            return res.status(400).send({ message: "Fields verification failed" });
+        }
         next();
     }
 
@@ -26,7 +35,7 @@ class UserInterceptor {
 
     update(req, res, next){
         if(req.params._id === undefined){
-            console.log("Interceptor:login varification failed.");
+            console.log("User Interceptor:update verification failed.");
             return res.status(400).send({ message: "Fields verification failed" });
         }
         next();
@@ -34,7 +43,7 @@ class UserInterceptor {
 
     delete(req, res, next){
         if(req.params._id === undefined){
-            console.log("Interceptor:login varification failed.");
+            console.log("User Interceptor:delete verification failed.");
             return res.status(400).send({ message: "Fields verification failed" });
         }
         next();

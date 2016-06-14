@@ -26,7 +26,7 @@ class AdminRoutes {
         router.get("/", auth.requiresAuth, interceptor.retrieve, controller.retrieve);
         router.post("/login",  interceptor.login, controller.login);
         router.post("/user", auth.requiresAuth, controller.user);
-        router.post("",controller.create);
+        router.post("", interceptor.create, controller.create);
         router.put("/:_id",  auth.requiresAuth, interceptor.update, controller.update);
         router.delete("/:_id", auth.requiresAuth, interceptor.delete, controller.delete);
         return router;
