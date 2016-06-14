@@ -60,10 +60,11 @@ class OrderBusiness  implements IOrderBusiness {
                 var defaultTask : TaskModel = <TaskModel>item.defaultTask;
                 taskRepository.update(item.defaultTask._id, defaultTask, function(err, status){
                    if(err){
-                       callback(err, res);
+                       callback(err, status);
                    }
                     else if(res){
-                       item.defaultTask = status._id;
+                       //console.log("default tasd ===>"+JSON.stringify(status));
+                       item.defaultTask = item.defaultTask._id;
                        orderRepository.update(_id, item, callback);
                    }
                     else{
