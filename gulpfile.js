@@ -2,7 +2,7 @@ var gulp = require("gulp");
 var tsc  = require("gulp-typescript-compiler");
 var nodemon = require("gulp-nodemon");
 
-gulp.task("default", ["compile", "watch", "nodemon"]);
+gulp.task("default", ["compile","test", "watch", "nodemon"]);
 
 
 gulp.task("watch", function () {
@@ -24,6 +24,22 @@ gulp.task("compile", function () {
         "logErrors": true
     }))
     .pipe(gulp.dest("lib"));
+});
+
+gulp.task("test", function () {
+
+    return gulp
+        .src("test/**/*.ts")
+        .pipe(tsc({
+            "module": "commonjs",
+            "target": "ES5",
+            "noImplicitAny": false,
+            "sourceMap": false,
+            "emitDecoratorMetadata": true,
+            "experimentalDecorators": true,
+            "logErrors": true
+        }))
+        .pipe(gulp.dest("Test"));
 });
 
 gulp.task("nodemon", function () {

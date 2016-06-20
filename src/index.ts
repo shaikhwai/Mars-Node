@@ -32,3 +32,6 @@
         console.log("Node app is running at "+config.get("Domain.host")+":" + port);
        
     });
+
+    app.close(callback);
+    module.exports = app;
