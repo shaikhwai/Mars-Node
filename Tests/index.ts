@@ -5,7 +5,7 @@
 var assert = require('chai').assert;
 var superagent = require('superagent');
 
-
+var server = require('./../lib/index.js').app;
 
 
 describe('server', function() {

@@ -33,5 +33,4 @@
        
     });
 
-    app.close(callback);
     module.exports = app;

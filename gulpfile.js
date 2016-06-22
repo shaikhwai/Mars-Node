@@ -29,7 +29,7 @@ gulp.task("compile", function () {
 gulp.task("test", function () {
 
     return gulp
-        .src("test/**/*.ts")
+        .src("Tests/**/*.ts")
         .pipe(tsc({
             "module": "commonjs",
             "target": "ES5",
@@ -39,7 +39,7 @@ gulp.task("test", function () {
             "experimentalDecorators": true,
             "logErrors": true
         }))
-        .pipe(gulp.dest("Test"));
+        .pipe(gulp.dest("test"));
 });
 
 gulp.task("nodemon", function () {

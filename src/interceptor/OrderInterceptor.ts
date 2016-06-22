@@ -14,7 +14,7 @@ class OrderInterceptor {
     create(req, res, next){
         if((req.body.defaultTask.assignedTo._id === undefined) || (req.body.shippingAddress._id === undefined) ||
             (req.body.billingAddress._id === undefined) || (req.body.customer._id === undefined)) {
-            console.log("Order Interceptor:create field varification failed.");
+            console.log("Order Interceptor:create field verification failed.");
             return res.status(400).send({ message: "field verification failed." });
         }
         var items: Array<ItemModel> = new Array();
@@ -26,7 +26,7 @@ class OrderInterceptor {
             items.push(new ItemModel(item._id, item.qty));
         });
         req.body.items = items;
-        console.log("Order Interceptor:field varification done ");
+        console.log("Order Interceptor:field verification done ");
         next();
     }
 
@@ -56,7 +56,7 @@ class OrderInterceptor {
 
     delete(req, res, next){
         if(req.params._id === undefined){
-            console.log("Order Interceptor:field varification failed.");
+            console.log("Order Interceptor:field verification failed.");
             return res.status(400).send({ message: "Fields verification failed" });
         }
         next();
