@@ -16,6 +16,7 @@ function mylog(target: Object, propertyKey: string, descriptor: TypedPropertyDes
     return descriptor;
 }
 */
+/*
 
 export function log(target: Function, key: string, value: any) {
     return {
@@ -29,6 +30,7 @@ export function log(target: Function, key: string, value: any) {
         }
     };
 }
+*/
 
 
 //import "reflect-metadata";

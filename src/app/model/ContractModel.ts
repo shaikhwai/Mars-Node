@@ -6,7 +6,7 @@ import mongoose = require("mongoose");
 
 class ContractModel {
 
-    productId: {type:mongoose.Schema.Types.ObjectId, ref:'Product'};
+    productId: string;
     unitRate: Number;
     item: String;
 

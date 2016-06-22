@@ -8,8 +8,8 @@ class CustomerModel {
     fromCompany: string;
     contactPerson: string;
     contactNumber: number;
-    shippingAddress: [{type:mongoose.Schema.Types.ObjectId, ref:'IAddress'}];
-    billingAddress: [{type:mongoose.Schema.Types.ObjectId, ref:'IAddress'}];
+    shippingAddress: Array<string>;
+    billingAddress: Array<string>;
     contract: Array<Contract>;
 
     constructor() {
